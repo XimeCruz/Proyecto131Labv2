@@ -10,7 +10,10 @@ import estruc.museo.Museo;
 import estruc.museo.NodoM;
 import estruc.persona.Artista;
 import estruc.persona.LSArtista;
+import estruc.persona.LSVisitante;
 import estruc.persona.NodoA;
+import estruc.persona.NodoV;
+import estruc.persona.Visitante;
 import estruc.produccion.LSProduccion;
 import estruc.produccion.NodoP;
 import estruc.produccion.Produccion;
@@ -473,11 +476,14 @@ public class BuscarMuseoPanel extends javax.swing.JPanel {
                 NodoS q = w.getP();
                 DefaultListModel modSala = new DefaultListModel();
                 listaSalasMuseo.setModel(modSala);
+                int nArt = 0;
+                int nVis = 0;
+                int nProducciones = 0;
                 while(q!=null){
                     System.out.println("capa1");
                     Sala sx = (Sala)q.getSala();
                     LSProduccion lp = sx.getListaProducciones();
-                    int nProducciones = lp.nroNodos();
+                    nProducciones = lp.nroNodos();
                     NodoP s = lp.getP();
                     DefaultListModel modProd = new DefaultListModel();
                     listaProduccionesMuseo.setModel(modProd);
@@ -485,7 +491,7 @@ public class BuscarMuseoPanel extends javax.swing.JPanel {
                         System.out.println("capa2");
                         Produccion px = (Produccion) s.getProduccion();
                         LSArtista la = px.getListaArtistas();
-                        int nArt = la.nroNodos();
+                        nArt = la.nroNodos();
                         DefaultListModel modArt = new DefaultListModel();
                         listaArtistasMuseo.setModel(modArt);
                         NodoA t = la.getP();
@@ -495,18 +501,19 @@ public class BuscarMuseoPanel extends javax.swing.JPanel {
                             modArt.addElement(ax.getNombre());
                             t = t.getSig();
                         }
-                       /* LSVisitante lSVisitante = new LSVisitante();
+                       LSVisitante lSVisitante = px.getListaVisitantes();
+                
                         
-                        Pila aux = new Pila(px.getNroEntradas());
-                        Pila pvisit = px.getPilaVisitantes();
                         DefaultListModel modVis = new DefaultListModel();
                         listaVisitantesMuseo.setModel(modVis);
-                        int nVis = pvisit.nElem();
-                        while(!pvisit.esVacia()){
+                        nVis = lSVisitante.nroNodos();
+                        NodoV z = lSVisitante.getP();
+                        while(z!=null){
                             System.out.println("capault");
-                            Visitante vx = (Visitante)pvisit.eliminar();
-                            aux.adicionar(vx);
-                        }*/
+                            Visitante vx = (Visitante)z.getDato();
+                            modVis.addElement(vx.getNombre());
+                            z = z.getSig();
+                        }
                         modProd.addElement(px.getNombre());
                         s = s.getSig();
                     }
@@ -517,6 +524,12 @@ public class BuscarMuseoPanel extends javax.swing.JPanel {
                 circuitoMuseo.setText(circuito);
                 tipoMuseo.setText(tipo);
                 nroSalasMuseo.setText(String.format("%d",nsalas));
+                nroArtistasMuseo.setText(String.format("%d",nArt));
+                nroAsistentesMuseo.setText(String.format("%d",nVis));
+                nroProduccionesMuseo.setText(String.format("%d",nProducciones));
+                System.out.println("tipo"+tipo);
+                System.out.println("circuito"+circuito);
+                System.out.println("nro salas"+nsalas);
                 //nroProduccionesMuseo.setText(String.format("%d",nProducciones));
                 
             }
