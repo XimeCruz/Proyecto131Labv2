@@ -6,13 +6,18 @@ package panelArtista;
 
 import MainWindow.MainWindow;
 import estructuras.Listas.LDNormal;
-import estructuras.Listas.LSNormal;
 import estructuras.Listas.NodoD;
-import estructuras.Listas.NodoS;
+import estruc.sala.NodoS;
 import estruc.museo.Museo;
-import estruc.museo.Sala;
-import personas.Artista;
-import produccion.Produccion;
+import estruc.persona.Artista;
+import estruc.persona.NodoA;
+import estruc.produccion.LSProduccion;
+import estruc.produccion.NodoP;
+import estruc.sala.LSSala;
+import estruc.sala.Sala;
+import estruc.produccion.Produccion;
+
+
 
 /**
  *
@@ -43,20 +48,18 @@ public class PanelArtista extends javax.swing.JPanel {
         while (r != null) {
             Museo mx = (Museo) r.getDato();
             String idMx = "(" + mx.getId() + ") " + mx.getNombre();
-
-            LSNormal lsx = mx.getListaSalas();
-            NodoS w = lsx.getCabecera();
+            LSSala lsx = mx.getListaSalas();
+            NodoS w = lsx.getP();
             while (w != null) {
-                Sala sx = (Sala) w.getDato();
-
-                LDNormal lpx = sx.getListaProducciones();
-                NodoD z = lpx.getP();
+                Sala sx = w.getSala();
+                LSProduccion lpx = sx.getListaProducciones();
+                NodoP z = lpx.getP();
                 while (z != null) {
-                    Produccion px = (Produccion) z.getDato();
-                    NodoS u = px.getListaArtistas().getCabecera();
+                    Produccion px = z.getProduccion();
+                    NodoA u = px.getListaArtistas().getP();
                     while (u != null) {
-                        Artista ax = (Artista) u.getDato();
-                        artistaAFila(ax, idMx, sx.getIdSala(), px.getNombre());
+                        Artista ax = u.getDato();
+                        artistaAFila(ax, idMx, ""+sx.getIdSala(), px.getNombre());
                         u = u.getSig();
                     }
                     z = z.getSig();

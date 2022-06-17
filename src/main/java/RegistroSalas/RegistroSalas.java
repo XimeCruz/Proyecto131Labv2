@@ -196,7 +196,7 @@ public class RegistroSalas extends javax.swing.JFrame {
     private void agregarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarSalaActionPerformed
 
         // Obtener datos de los campos de texto
-        String nombre, id;
+        String nombre,id;
         int capacidad = capacidadSala.getSelectedIndex();
         nombre = nombreSala.getText();
         id = idSala.getText();

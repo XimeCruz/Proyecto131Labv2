@@ -16,6 +16,8 @@ public class Sala {
     private String nombre;
     private int capacidad;
     private LSProduccion listaProducciones;
+    
+    public Sala(){}
 
     public Sala(String idSala, String nombre, int capacidad, LSProduccion listaProducciones) {
         this.idSala = idSala;
@@ -24,13 +26,11 @@ public class Sala {
         this.listaProducciones = listaProducciones;
     }
 
-    public Sala() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+   
+    public Sala(String principal, String s111, int i) {
+        
     }
 
-    public Sala(String principal, String s111, int i) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     public String getIdSala() {
         return idSala;
