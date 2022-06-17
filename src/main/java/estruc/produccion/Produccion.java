@@ -4,6 +4,9 @@
  */
 package estruc.produccion;
 
+import estruc.persona.LSArtista;
+import estruc.persona.LSVisitante;
+
 /**
  *
  * @author Ximena Cruz
