@@ -12,7 +12,7 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import estruc.museo.Museo;
-import estruc.museo.Sala;
+import estruc.sala.Sala;
 
 /**
  *
@@ -196,10 +196,11 @@ public class RegistroSalas extends javax.swing.JFrame {
     private void agregarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarSalaActionPerformed
 
         // Obtener datos de los campos de texto
-        String nombre, id;
+        String nombre,id;
         int capacidad = capacidadSala.getSelectedIndex();
         nombre = nombreSala.getText();
         id = idSala.getText();
+        int num=Integer.parseInt(id);
         // Validacion de campos no vacios
         if (nombre.equals("") || nombreSala.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Llene todos los campos",
@@ -208,7 +209,7 @@ public class RegistroSalas extends javax.swing.JFrame {
         } else {
             Sala sx = new Sala();
             sx.setCapacidad(capacidad);
-            sx.setIdSala(id);
+            sx.setIdSala(num);
             sx.setNombre(nombre);
             listaSalas.adiFin(sx);
             mainWindow.getPanel2().datosATabla();

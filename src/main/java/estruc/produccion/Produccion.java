@@ -4,8 +4,8 @@
  */
 package estruc.produccion;
 
-import produccion.LSArtista;
-import produccion.LSVisitante;
+import estruc.persona.LSArtista;
+import estruc.persona.LSVisitante;
 
 /**
  *

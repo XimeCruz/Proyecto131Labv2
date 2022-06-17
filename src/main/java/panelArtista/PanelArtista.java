@@ -9,13 +9,15 @@ import estructuras.Listas.LDNormal;
 import estructuras.Listas.NodoD;
 import estruc.sala.NodoS;
 import estruc.museo.Museo;
+import estruc.persona.Artista;
+import estruc.persona.NodoA;
 import estruc.produccion.LSProduccion;
 import estruc.produccion.NodoP;
 import estruc.sala.LSSala;
 import estruc.sala.Sala;
-import produccion.Artista;
 import estruc.produccion.Produccion;
-import produccion.NodoA;
+
+
 
 /**
  *

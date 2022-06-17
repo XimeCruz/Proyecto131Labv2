@@ -24,6 +24,13 @@ public class Sala {
         this.listaProducciones = listaProducciones;
     }
 
+    public Sala() {
+        this.idSala=0;
+        this.capacidad=0;
+        this.listaProducciones=null;
+        this.nombre=null;
+    }
+
     public int getIdSala() {
         return idSala;
     }

@@ -10,16 +10,16 @@ import estructuras.Listas.LSNormal;
 import estructuras.Listas.NodoD;
 import estructuras.Pila.Pila;
 import estruc.museo.Museo;
+import estruc.persona.LSVisitante;
+import estruc.persona.NodoV;
+import estruc.persona.Visitante;
 import estruc.sala.LSSala;
 import estruc.sala.Sala;
-import produccion.Artista;
-import produccion.Visitante;
 import estruc.produccion.LSProduccion;
 import estruc.produccion.NodoP;
 import estruc.sala.NodoS ;
 import estruc.produccion.Produccion;
-import produccion.LSVisitante;
-import produccion.NodoV;
+
 /**
  *
  * @author Jeloska Chavez
