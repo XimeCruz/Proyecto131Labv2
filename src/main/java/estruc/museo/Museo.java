@@ -16,9 +16,24 @@ public class Museo implements Serializable{
     private String nombre, tipo, direccion, circuito, id;
     private LSSala listaSalas;
 
-    public Museo(String san_Francisco, String cultural, String av_Principal, String sopocachi_S1, String s11) {
-       
+     public Museo() {
+        nombre = null;
+        tipo = null;
+        direccion = null;
+        circuito = null;
+        id = null;
     }
+
+    public Museo(String nombre, String tipo, String direccion, String circuito, String id) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.direccion = direccion;
+        this.circuito = circuito;
+        this.id = id;
+        this.listaSalas = new LSSala();
+    }
+
+    
 
     public String getNombre() {
         return nombre;
@@ -68,12 +83,12 @@ public class Museo implements Serializable{
         this.listaSalas = listaSalas;
     }
     
-    public void mostrar() {
+    /*public void mostrar() {
         System.out.println("--------|Museo|----------");
         System.out.printf("Nombre: %s, Tipo: %s, Direccion:  %s, Circuito:  %s, Id:  %s \n", nombre, tipo, direccion,circuito,id);
         System.out.println("Salas: ");
         listaSalas.mostrar();
-    }
+    }*/
     
     
 

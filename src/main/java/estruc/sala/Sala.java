@@ -17,18 +17,20 @@ public class Sala {
     private int capacidad;
     private LSProduccion listaProducciones;
     
-    public Sala(){}
 
-    public Sala(String idSala, String nombre, int capacidad, LSProduccion listaProducciones) {
-        this.idSala = idSala;
+    public Sala(String nombre, String idSala, int capacidad) {
         this.nombre = nombre;
+        this.idSala = idSala;
         this.capacidad = capacidad;
-        this.listaProducciones = listaProducciones;
+        this.listaProducciones = new LSProduccion();
     }
 
    
-    public Sala(String principal, String s111, int i) {
-        
+    public Sala(){
+        nombre = null;
+        idSala = null;
+        capacidad = -1;
+        listaProducciones = new LSProduccion();
     }
 
 
@@ -64,10 +66,10 @@ public class Sala {
         this.listaProducciones = listaProducciones;
     }
     
-    public void mostrar() {
+    /*public void mostrar() {
         System.out.println("--------|Sala|----------");
         System.out.printf("idSala: %s, nombre: %s, capacidad %s \n", idSala,nombre,capacidad);
         listaProducciones.mostrar();
-    }
+    }*/
     
 }

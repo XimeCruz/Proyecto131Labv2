@@ -52,8 +52,8 @@ public class MainWindow extends javax.swing.JFrame {
     
     //listas
     private LSMuseo listaMuseos;
-    private LSArtista listaArtistas;
-    private LSProduccion listaProducciones;
+    //private LSArtista listaArtistas;
+    //private LSProduccion listaProducciones;
     private String id;
 
     // archivo de persistencia
@@ -67,7 +67,7 @@ public class MainWindow extends javax.swing.JFrame {
         cargarEstructuras();
         cargarPaneles();
         //agregarMuseosComboBox();
-        arch.crear();
+        //arch.crear();
 
     }
 
@@ -79,7 +79,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.listaMuseos = listaMuseos;
     }
 
-    public LSArtista getListaArtistas() {
+    /*public LSArtista getListaArtistas() {
         return listaArtistas;
     }
 
@@ -93,7 +93,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     public void setListaProducciones(LSProduccion listaProducciones) {
         this.listaProducciones = listaProducciones;
-    }
+    }*/
 
    
 
@@ -106,8 +106,38 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void cargarEstructuras() {
+        
+        Visitante vi1= new Visitante(6789878, "Ximena", "Cruz", "F", 1);
+        Visitante vi2= new Visitante(2458484, "Ivan", "Suarez", "M", 2);
+        Visitante vi3= new Visitante(5894612, "Ivon", "Pinto", "F", 3);
+        Visitante vi4= new Visitante(1547896, "Joel", "Fernandez", "M", 4);
+        Visitante vi5= new Visitante(1236454, "Diana", "Colque", "F", 5);
+        Visitante vi6= new Visitante(8456123, "Sara", "Burgoa", "F", 6);
+        Visitante vi7= new Visitante(8945613, "Libardo", "Valencia", "M", 7);
+        Visitante vi8= new Visitante(7845963, "Alan", "Altamirano", "M", 8);
+        
+        LSVisitante lSVisitante = new LSVisitante();
+        lSVisitante.adiFinal(vi1);
+        lSVisitante.adiFinal(vi2);
+        lSVisitante.adiFinal(vi3);
+        lSVisitante.adiFinal(vi4);
+        lSVisitante.adiFinal(vi5);
+        lSVisitante.adiFinal(vi6);
+        lSVisitante.adiFinal(vi7);
+        lSVisitante.adiFinal(vi8);
+        
+        Artista a1 = new Artista(6789878, "Julian", "Montenegro", "M", "Pintor");
+        Artista a2 = new Artista(2489567, "Maria", "Valdez", "F", "Pintor");
+        Artista a3 = new Artista(7889456, "Eva", "Sanchez", "F", "Pintor");
+        Artista a4 = new Artista(1569845, "Josue", "Barrios", "M", "Pintor");
+        Artista a5 = new Artista(9568716, "Erick", "Tancara", "M", "Pintor");
+        Artista a6 = new Artista(6578945, "Christian", "Monrroy", "M", "Pintor");
+        Artista a7 = new Artista(3987456, "Maira", "Vasquez", "F", "Pintor");
+        Artista a8 = new Artista(9874563, "Ruben", "Lima", "M", "Pintor");
+        
+        LSArtista lSArtista = new LSArtista();
+        
         listaMuseos = new LSMuseo();
-        listaProducciones = new LSProduccion();
 
         //String nombre, String tipo, String direccion, String circuito, int id
         Museo m1 = new Museo("San Francisco", "Cultural", "Av. Principal", "Sopocachi S1", "S1-1");
@@ -116,21 +146,26 @@ public class MainWindow extends javax.swing.JFrame {
         Sala s11 = new Sala("Principal", "S1-1-1", 40);
         m1.getListaSalas().adiFinal(s11);
         //String nombre, String fecha, String hora, String tipo, int nroEntradas, double precio
-        Produccion p11 = new Produccion("Teatro", "24/12/2021", "14:00", "Teatro", 20, 3.50);
-        s11.getListaProducciones().adiFinal(p11);
+        Produccion pro;
+        pro = new Produccion("Teatro", "24/12/2021", "14:00", "Teatro", 20, 3.50);
+        
+        /*listaProducciones.adiFinal(pro);
+        s11.setListaProducciones(listaProducciones);
         //int ci, String nombre, String apellido, String genero, String tipo
         Artista a11 = new Artista(1264, "Camila", "Ana", "F", "Escritora");
         Visitante v11 = new Visitante(1264, "Camila", "Ana", "F", 3);
-
-        p11.getListaArtistas().adiFinal(a11);
-        p11.getListaVisitantes().adiFinal(v11);
+        LSVisitante lSVisitante = new LSVisitante();
+        listaArtistas.adiFinal(a11);
+        lSVisitante.adiFinal(v11);
+        pro.setListaArtistas(listaArtistas);
+        pro.setListaVisitantes(lSVisitante);*/
 
         listaMuseos.adiFinal(m1);
         listaMuseos.adiFinal(m2);
         
-        listaMuseos.mostrar();
-        listaProducciones.mostrar();
-        listaArtistas.mostrar();
+        //listaMuseos.mostrar();
+        /*listaProducciones.mostrar();
+        listaArtistas.mostrar();*/
 
     }
 
@@ -148,18 +183,18 @@ public class MainWindow extends javax.swing.JFrame {
         while(it.hasNext()){
             if (c == 0)
                 listaMuseos = (LSMuseo)it.next();
-            else if (c == 1)
+            /*else if (c == 1)
                 listaArtistas = (LSArtista) it.next();
             else if (c == 2)
-                listaProducciones = (LSProduccion) it.next();
+                listaProducciones = (LSProduccion) it.next();*/
             c++;
         }
     }
     public void guardarEstructurasArchivo() throws IOException{
         LinkedList<Object> estruct = new LinkedList<>();
         estruct.addLast(listaMuseos);
-        estruct.addLast(listaArtistas);
-        estruct.addLast(listaProducciones);
+        //estruct.addLast(listaArtistas);
+        //estruct.addLast(listaProducciones);
         
         arch.guardarEstructuras(estruct);
     }

@@ -37,7 +37,7 @@ public class LSProduccion {
         }
     }
 
-    public void mostrar() {
+    /*public void mostrar() {
         NodoP q = getP();
         System.out.println("---------- Lista de Producciones ---------------");
         if (q != null) {
@@ -48,7 +48,7 @@ public class LSProduccion {
         } else {
             System.out.println("Lista vacia");
         }
-    }
+    }*/
 
     public NodoP eliFinal() {
         NodoP q = getP();
