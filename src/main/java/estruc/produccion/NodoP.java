@@ -4,11 +4,13 @@
  */
 package estruc.produccion;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Ximena Cruz
  */
-public class NodoP {
+public class NodoP implements Serializable{
     
     private Produccion produccion;
     private NodoP sig;

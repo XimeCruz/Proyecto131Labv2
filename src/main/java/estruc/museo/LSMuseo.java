@@ -40,7 +40,7 @@ public class LSMuseo implements Serializable{
         }
     }
 
-    /*public void mostrar() {
+    public void mostrar() {
         NodoM q = getP();
         System.out.println("---------- Lista de Museos ---------------");
         if (q != null) {
@@ -51,7 +51,7 @@ public class LSMuseo implements Serializable{
         } else {
             System.out.println("Lista vacia");
         }
-    }*/
+    }
 
     public NodoM eliFinal() {
         NodoM q = getP();

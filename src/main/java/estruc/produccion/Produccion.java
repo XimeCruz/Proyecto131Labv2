@@ -6,12 +6,13 @@ package estruc.produccion;
 
 import estruc.persona.LSArtista;
 import estruc.persona.LSVisitante;
+import java.io.Serializable;
 
 /**
  *
  * @author Ximena Cruz
  */
-public class Produccion {
+public class Produccion implements Serializable{
     
     private String nombre, tipo, fecha, hora;
     private LSVisitante listaVisitantes;

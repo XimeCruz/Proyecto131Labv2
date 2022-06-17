@@ -4,11 +4,13 @@
  */
 package estruc.persona;
 
+import java.io.Serializable;
+
 /**
  *
  * @author alan
  */
-public class NodoA {
+public class NodoA implements Serializable {
     
     Artista Dato;
     NodoA Sig;

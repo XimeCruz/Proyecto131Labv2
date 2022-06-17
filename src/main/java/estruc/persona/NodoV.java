@@ -4,11 +4,13 @@
  */
 package estruc.persona;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Alan Apaza
  */
-public class NodoV {
+public class NodoV implements Serializable{
     
     Visitante Dato;
     NodoV Sig;

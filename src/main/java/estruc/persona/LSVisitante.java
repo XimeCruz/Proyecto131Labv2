@@ -42,7 +42,7 @@ public class LSVisitante implements Serializable{
 
     public void mostrar() {
         NodoV q = getP();
-        System.out.println("Lista de Turistas");
+        System.out.println("Lista de Visitantes");
         if (q != null) {
             while (q != null) {
                 q.getDato().mostrar();

@@ -27,7 +27,6 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import panelArtista.PanelArtista;
@@ -40,7 +39,7 @@ import panelSalas.PanelSalasProducciones;
 import panelVisitante.PanelVisitante;
 import persistencia.ArchReg;
 
-public class MainWindow extends javax.swing.JFrame {
+public final class MainWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form MainWindow
@@ -56,18 +55,20 @@ public class MainWindow extends javax.swing.JFrame {
     private PanelSalasProducciones panelSalasProducciones;
  
     //listas
-    private LSMuseo listaMuseos;
+    private LSMuseo listaMuseos = new LSMuseo();
     //private LSArtista listaArtistas;
     //private LSProduccion listaProducciones;
     private String id;
 
     // archivo de persistencia
-    private ArchReg arch = new ArchReg("data1.txt");
+    private ArchReg arch = new ArchReg("dataReal.txt");
     public MainWindow() throws IOException {
         initComponents();
         //arch.crear();
-        //cargarEstructurasArchivo();
-        cargarEstructuras();
+        arch.listarEstructuras();
+        cargarEstructurasArchivo();
+        //cargarEstructuras();
+        //guardarEstructurasArchivo();
         cargarPaneles();
 
         
@@ -123,39 +124,55 @@ public class MainWindow extends javax.swing.JFrame {
         Artista a8 = new Artista(9874563, "Ruben", "Lima", "M", "Pintor");
         
         LSArtista lSArtista = new LSArtista();
+        lSArtista.adiFinal(a1);
+        lSArtista.adiFinal(a2);
+        lSArtista.adiFinal(a3);
+        lSArtista.adiFinal(a4);
+        lSArtista.adiFinal(a5);
+        lSArtista.adiFinal(a6);
+        lSArtista.adiFinal(a7);
+        lSArtista.adiFinal(a8);
         
+        lSArtista.mostrar();
+        lSVisitante.mostrar();
+        Produccion p11 = new Produccion("Teatro", "24/12/2021", "14:00", "Teatro", 20, 3.50);
+        p11.setListaArtistas(lSArtista);
+        p11.setListaVisitantes(lSVisitante);
         listaMuseos = new LSMuseo();
+        p11.mostrar();
 
         //String nombre, String tipo, String direccion, String circuito, int id
         Museo m1 = new Museo("San Francisco", "Cultural", "Av. Principal", "Sopocachi S1", "S1-1");
         Museo m2 = new Museo("Artypica", "Arte", "Av. Principal", "Centro C1", "C1-2");
         //String nombre, String idSala, int capacidad, LDNormal listaProducciones
         Sala s11 = new Sala("Principal", "S1-1-1", 40);
-        m1.getListaSalas().adiFinal(s11);
+        LSSala lSSala = new LSSala();
+        lSSala.adiFinal(s11);
         //String nombre, String fecha, String hora, String tipo, int nroEntradas, double precio
         /*Produccion pro;
         pro = new Produccion("Teatro", "24/12/2021", "14:00", "Teatro", 20, 3.50);
         
         listaProducciones.adiFinal(pro);
         s11.setListaProducciones(listaProducciones);*/
-        Produccion p11 = new Produccion("Teatro", "24/12/2021", "14:00", "Teatro", 20, 3.50);
-        s11.getListaProducciones().adiFinal(p11);
+        
+        LSProduccion lSProduccion = new LSProduccion();
+        lSProduccion.adiFinal(p11);
+        s11.setListaProducciones(lSProduccion);
         
         //int ci, String nombre, String apellido, String genero, String tipo
-        Artista a11 = new Artista(1264, "Camila", "Ana", "F", "Escritora");
-        Visitante v11 = new Visitante(1264, "Camila", "Ana", "F", 3);
+        //Artista a11 = new Artista(1264, "Camila", "Ana", "F", "Escritora");
+        //Visitante v11 = new Visitante(1264, "Camila", "Ana", "F", 3);
 
-        p11.getListaArtistas().adiFinal(a11);
-        p11.getListaVisitantes().adiFinal(v11);
+        
         /*LSVisitante lSVisitante = new LSVisitante();
         listaArtistas.adiFinal(a11);
         lSVisitante.adiFinal(v11);
         pro.setListaArtistas(listaArtistas);
         pro.setListaVisitantes(lSVisitante);*/
-
+        m1.setListaSalas(lSSala);
         listaMuseos.adiFinal(m1);
         listaMuseos.adiFinal(m2);
-        
+        listaMuseos.mostrar();
         //listaMuseos.mostrar();
         /*listaProducciones.mostrar();
         listaArtistas.mostrar();*/
@@ -2849,13 +2866,15 @@ public class MainWindow extends javax.swing.JFrame {
         while(it.hasNext()){
             if (c == 0)
                 listaMuseos = (LSMuseo) it.next();
+            //else if (c == 1)
+            //    listaArtistas = (LSArtista) it.next();
             c++;
         }
     }
     public void guardarEstructurasArchivo() throws IOException{
         LinkedList<Object> estruct = new LinkedList<>();
         estruct.addLast(listaMuseos);
-        
+        //estruct.addLast(listaArtistas);
         arch.guardarEstructuras(estruct);
     }
     
@@ -2947,18 +2966,40 @@ public class MainWindow extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-
-                MainWindow a = null;
                 try {
-                    a = new MainWindow();
+                    new MainWindow().setVisible(true);
                 } catch (IOException ex) {
                     Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                a.dispose();
-                a.setUndecorated(true);
-                a.setVisible(true);
             }
         });
     }

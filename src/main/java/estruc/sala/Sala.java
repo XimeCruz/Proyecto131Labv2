@@ -5,12 +5,13 @@
 package estruc.sala;
 
 import estruc.produccion.LSProduccion;
+import java.io.Serializable;
 
 /**
  *
  * @author Ximena Cruz
  */
-public class Sala {
+public class Sala implements Serializable{
     
     private String idSala;
     private String nombre;
@@ -66,10 +67,10 @@ public class Sala {
         this.listaProducciones = listaProducciones;
     }
     
-    /*public void mostrar() {
+    public void mostrar() {
         System.out.println("--------|Sala|----------");
         System.out.printf("idSala: %s, nombre: %s, capacidad %s \n", idSala,nombre,capacidad);
         listaProducciones.mostrar();
-    }*/
+    }
     
 }

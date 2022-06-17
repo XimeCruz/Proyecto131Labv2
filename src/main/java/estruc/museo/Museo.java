@@ -83,12 +83,12 @@ public class Museo implements Serializable{
         this.listaSalas = listaSalas;
     }
     
-    /*public void mostrar() {
+    public void mostrar() {
         System.out.println("--------|Museo|----------");
         System.out.printf("Nombre: %s, Tipo: %s, Direccion:  %s, Circuito:  %s, Id:  %s \n", nombre, tipo, direccion,circuito,id);
         System.out.println("Salas: ");
         listaSalas.mostrar();
-    }*/
+    }
     
     
 

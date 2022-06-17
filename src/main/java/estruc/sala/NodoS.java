@@ -4,11 +4,13 @@
  */
 package estruc.sala;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Ximena Cruz
  */
-public class NodoS {
+public class NodoS implements Serializable{
     
     private Sala sala;
     private NodoS sig;

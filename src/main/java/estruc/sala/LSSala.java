@@ -4,11 +4,13 @@
  */
 package estruc.sala;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Ximena Cruz
  */
-public class LSSala {
+public class LSSala implements Serializable{
     
     private NodoS p;
 
@@ -38,7 +40,7 @@ public class LSSala {
         }
     }
 
-    /*public void mostrar() {
+    public void mostrar() {
         NodoS q = getP();
         System.out.println("---------- Lista de Salas ---------------");
         if (q != null) {
@@ -49,7 +51,7 @@ public class LSSala {
         } else {
             System.out.println("Lista vacia");
         }
-    }*/
+    }
 
     public NodoS eliFinal() {
         NodoS q = getP();

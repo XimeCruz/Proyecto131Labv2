@@ -4,11 +4,13 @@
  */
 package estruc.museo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Ximena Cruz
  */
-public class NodoM {
+public class NodoM implements Serializable{
     private Museo museo;
     private NodoM sig;
     public NodoM(){
