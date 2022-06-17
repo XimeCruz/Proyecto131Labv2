@@ -5,10 +5,10 @@
 package panelArtista;
 
 import MainWindow.MainWindow;
-import estructuras.Listas.LDNormal;
-import estructuras.Listas.NodoD;
+import estruc.museo.LSMuseo;
 import estruc.sala.NodoS;
 import estruc.museo.Museo;
+import estruc.museo.NodoM;
 import estruc.persona.Artista;
 import estruc.persona.NodoA;
 import estruc.produccion.LSProduccion;
@@ -18,18 +18,13 @@ import estruc.sala.Sala;
 import estruc.produccion.Produccion;
 
 
-
-/**
- *
- * @author Jeloska Chavez
- */
 public class PanelArtista extends javax.swing.JPanel {
 
     /**
      * Creates new form PanelArtista
      */
     private MainWindow mainWindow;
-    private LDNormal museos;
+    private LSMuseo museos;
 
     public PanelArtista() {
         initComponents();
@@ -44,9 +39,9 @@ public class PanelArtista extends javax.swing.JPanel {
 
     public void datosATabla() {
         tabla.clearTable();
-        NodoD r = museos.getP();
+        NodoM r = museos.getP();
         while (r != null) {
-            Museo mx = (Museo) r.getDato();
+            Museo mx = (Museo) r.getMuseo();
             String idMx = "(" + mx.getId() + ") " + mx.getNombre();
             LSSala lsx = mx.getListaSalas();
             NodoS w = lsx.getP();

@@ -5,9 +5,9 @@
 package panelMuseo;
 
 import MainWindow.MainWindow;
-import estructuras.Listas.LDNormal;
-import estructuras.Listas.NodoD;
+import estruc.museo.LSMuseo;
 import estruc.museo.Museo;
+import estruc.museo.NodoM;
 
 /**
  *
@@ -20,7 +20,7 @@ public class PanelMuseo extends javax.swing.JPanel {
      * Creates new form panelMuseo
      */
     private MainWindow mainWindow;
-    private LDNormal museos;
+    private LSMuseo museos;
     public PanelMuseo() {
         initComponents();
     }
@@ -34,15 +34,15 @@ public class PanelMuseo extends javax.swing.JPanel {
     public void datosATabla(){
         tabla.clearTable();
         
-        NodoD q = museos.getP();
+        NodoM q = museos.getP();
         while(q != null){
-            Museo museo = (Museo)q.getDato();
+            Museo museo = (Museo)q.getMuseo();
             MuseoAFila(museo);
             q = q.getSig();
         }
     }//nombre, tipo, direccion, circuito
     private void MuseoAFila(Museo x){
-        Object[] arr = new Object[]{x.getId(),x.getNombre(), x.getTipo(), x.getDireccion(), x.getCircuito(), x.getListaSalas().nElem()};
+        Object[] arr = new Object[]{x.getId(),x.getNombre(), x.getTipo(), x.getDireccion(), x.getCircuito(), x.getListaSalas().nroNodos()};
         tabla.addRow(arr);
         
     }

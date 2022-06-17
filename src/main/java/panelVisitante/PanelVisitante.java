@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package panelVisitante;
 
 import MainWindow.MainWindow;
-import estructuras.Listas.LDNormal;
-import estructuras.Listas.LSNormal;
-import estructuras.Listas.NodoD;
-import estructuras.Pila.Pila;
+import estruc.museo.LSMuseo;
 import estruc.museo.Museo;
+import estruc.museo.NodoM;
 import estruc.persona.LSVisitante;
 import estruc.persona.NodoV;
 import estruc.persona.Visitante;
@@ -30,7 +24,7 @@ public class PanelVisitante extends javax.swing.JPanel {
      * Creates new form PanelVisitante
      */
     private MainWindow mainWindow;
-    private LDNormal museos;
+    private LSMuseo museos;
 
     public PanelVisitante() {
         initComponents();
@@ -45,9 +39,9 @@ public class PanelVisitante extends javax.swing.JPanel {
 
     public void datosATabla() {
         tabla.clearTable();
-        NodoD r = museos.getP();
+        NodoM r = museos.getP();
         while (r != null) {
-            Museo mx = (Museo) r.getDato();
+            Museo mx = (Museo) r.getMuseo();
             String idMx = "(" + mx.getId() + ") " + mx.getNombre();
 
             LSSala lsx = mx.getListaSalas();

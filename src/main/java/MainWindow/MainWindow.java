@@ -4,6 +4,7 @@
  */
 package MainWindow;
 
+import persistencia.ArchReg;
 import RegistroSalas.RegistroSalas;
 import estruc.museo.LSMuseo;
 import java.awt.Color;
@@ -34,7 +35,6 @@ import panelArtista.PanelArtista;
 import panelMuseo.PanelMuseo;
 import panelProduccion.PanelProduccion;
 import panelVisitante.PanelVisitante;
-import persistencia.ArchReg;
 
 public class MainWindow extends javax.swing.JFrame {
 

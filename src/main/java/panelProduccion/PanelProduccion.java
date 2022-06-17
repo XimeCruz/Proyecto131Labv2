@@ -5,14 +5,13 @@
 package panelProduccion;
 
 import MainWindow.MainWindow;
-import estructuras.Listas.LDNormal;
-import estructuras.Listas.LSNormal;
-import estructuras.Listas.NodoD;
-import estructuras.Listas.NodoS;
+import estruc.museo.LSMuseo;
 import estruc.museo.Museo;
-import estruc.museo.Sala;
-import personas.Artista;
-import produccion.Produccion;
+import estruc.museo.NodoM;
+import estruc.produccion.NodoP;
+import estruc.produccion.Produccion;
+import estruc.sala.NodoS;
+import estruc.sala.Sala;
 
 /**
  *
@@ -20,7 +19,7 @@ import produccion.Produccion;
  */
 public class PanelProduccion extends javax.swing.JPanel {
     private MainWindow mainWindow;
-    private LDNormal museos;
+    private LSMuseo museos;
 
     
     /**
@@ -38,15 +37,15 @@ public class PanelProduccion extends javax.swing.JPanel {
     
     public void datosATabla(){
         tabla.clearTable();
-        NodoD r = museos.getP();
+        NodoM r = museos.getP();
         while(r!=null){
-            Museo mx = (Museo)r.getDato();
-            NodoS w = mx.getListaSalas().getCabecera();
+            Museo mx = (Museo)r.getMuseo();
+            NodoS w = mx.getListaSalas().getP();
             while(w!=null){
-                Sala sw = (Sala) w.getDato();
-                NodoD t =  sw.getListaProducciones().getP();
+                Sala sw = (Sala) w.getSala();
+                NodoP t =  sw.getListaProducciones().getP();
                 while(t!=null){
-                    Produccion x = (Produccion) t.getDato();
+                    Produccion x = (Produccion) t.getProduccion();
                     System.out.println("Produccion");
                     produccionAFila(x, mx.getId(), sw.getIdSala());
                     t = t.getSig();
