@@ -8,14 +8,18 @@ import MainWindow.MainWindow;
 import estructuras.Listas.LDNormal;
 import estructuras.Listas.LSNormal;
 import estructuras.Listas.NodoD;
-import estructuras.Listas.NodoS;
 import estructuras.Pila.Pila;
 import estruc.museo.Museo;
-import estruc.museo.Sala;
-import personas.Artista;
-import personas.Visitante;
-import produccion.Produccion;
-
+import estruc.sala.LSSala;
+import estruc.sala.Sala;
+import produccion.Artista;
+import produccion.Visitante;
+import estruc.produccion.LSProduccion;
+import estruc.produccion.NodoP;
+import estruc.sala.NodoS ;
+import estruc.produccion.Produccion;
+import produccion.LSVisitante;
+import produccion.NodoV;
 /**
  *
  * @author Jeloska Chavez
@@ -46,24 +50,23 @@ public class PanelVisitante extends javax.swing.JPanel {
             Museo mx = (Museo) r.getDato();
             String idMx = "(" + mx.getId() + ") " + mx.getNombre();
 
-            LSNormal lsx = mx.getListaSalas();
-            NodoS w = lsx.getCabecera();
+            LSSala lsx = mx.getListaSalas();
+            NodoS w = lsx.getP();
             while (w != null) {
-                Sala sx = (Sala) w.getDato();
-
-                LDNormal lpx = sx.getListaProducciones();
-                NodoD z = lpx.getP();
+                Sala sx = w.getSala();
+                
+                LSProduccion lpx = sx.getListaProducciones();
+                NodoP z = lpx.getP();
                 while (z != null) {
-                    Produccion px = (Produccion) z.getDato();
-                    Pila pvx = px.getPilaVisitantes();
-                    Pila aux = new Pila(pvx.nElem());
-                    while (!pvx.esVacia()) {
-                        Visitante vx = (Visitante) pvx.eliminar();
-                        visitanteAFila(vx, idMx, sx.getIdSala(), px.getNombre());
-                        aux.adicionar(vx);
-                       
+                    Produccion px = z.getProduccion();
+                    LSVisitante pvx = px.getListaVisitantes();
+        
+                    NodoV vaux=pvx.getP();
+                    while (vaux!=null) {
+                       Visitante vx=vaux.getDato();
+                        visitanteAFila(vx, idMx, ""+sx.getIdSala(), px.getNombre());
+                        vaux=vaux.getSig();
                     }
-                    pvx.vaciar(aux);
                     z = z.getSig();
 
                 }
