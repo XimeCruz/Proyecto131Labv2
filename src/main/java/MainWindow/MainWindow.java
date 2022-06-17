@@ -23,6 +23,10 @@ import java.awt.Component;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.ListIterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -58,15 +62,17 @@ public class MainWindow extends javax.swing.JFrame {
     private String id;
 
     // archivo de persistencia
-    //private ArchReg archivo = new ArchReg("data.txt");
-    public MainWindow() {
-
+    private ArchReg arch = new ArchReg("data1.txt");
+    public MainWindow() throws IOException {
+        initComponents();
+        //arch.crear();
+        //cargarEstructurasArchivo();
         cargarEstructuras();
         cargarPaneles();
 
-        initComponents();
+        
         //agregarMuseosComboBox();
-        //archivo.crear();
+        //arch.crear();
 
     }
 
@@ -376,6 +382,11 @@ public class MainWindow extends javax.swing.JFrame {
         idTicket = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         mainPanel.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 2, new java.awt.Color(153, 153, 153)));
         mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -2831,6 +2842,23 @@ public class MainWindow extends javax.swing.JFrame {
         
     }//GEN-LAST:event_idTicketMouseClicked
 
+    public void cargarEstructurasArchivo() throws IOException{
+        LinkedList<Object> estruct = arch.leerEstructuras();
+        ListIterator<Object> it = estruct.listIterator();
+        int c = 0;
+        while(it.hasNext()){
+            if (c == 0)
+                listaMuseos = (LSMuseo) it.next();
+            c++;
+        }
+    }
+    public void guardarEstructurasArchivo() throws IOException{
+        LinkedList<Object> estruct = new LinkedList<>();
+        estruct.addLast(listaMuseos);
+        
+        arch.guardarEstructuras(estruct);
+    }
+    
     private void addVisitanteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_addVisitanteKeyPressed
         // TODO add your handling code here:
 
@@ -2875,6 +2903,14 @@ public class MainWindow extends javax.swing.JFrame {
         setPanel(panelSalas);
     }//GEN-LAST:event_btn8MouseClicked
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        try {
+            guardarEstructurasArchivo();
+        } catch (IOException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowClosing
+
     /**
      * @param args the command line arguments
      */
@@ -2914,13 +2950,19 @@ public class MainWindow extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 
-                MainWindow a = new MainWindow();
+                MainWindow a = null;
+                try {
+                    a = new MainWindow();
+                } catch (IOException ex) {
+                    Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 a.dispose();
                 a.setUndecorated(true);
                 a.setVisible(true);
             }
         });
     }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel addArtist;
