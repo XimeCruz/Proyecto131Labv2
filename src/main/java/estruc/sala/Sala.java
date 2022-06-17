@@ -12,23 +12,31 @@ import estruc.produccion.LSProduccion;
  */
 public class Sala {
     
-    private int idSala;
+    private String idSala;
     private String nombre;
     private int capacidad;
     private LSProduccion listaProducciones;
 
-    public Sala(int idSala, String nombre, int capacidad, LSProduccion listaProducciones) {
+    public Sala(String idSala, String nombre, int capacidad, LSProduccion listaProducciones) {
         this.idSala = idSala;
         this.nombre = nombre;
         this.capacidad = capacidad;
         this.listaProducciones = listaProducciones;
     }
 
-    public int getIdSala() {
+    public Sala() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Sala(String principal, String s111, int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public String getIdSala() {
         return idSala;
     }
 
-    public void setIdSala(int idSala) {
+    public void setIdSala(String idSala) {
         this.idSala = idSala;
     }
 

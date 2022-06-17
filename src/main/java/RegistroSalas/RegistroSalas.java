@@ -5,14 +5,14 @@
 package RegistroSalas;
 
 import MainWindow.MainWindow;
-import estructuras.Listas.LSNormal;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import estruc.museo.Museo;
-import estruc.museo.Sala;
+import estruc.sala.LSSala;
+import estruc.sala.Sala;
 
 /**
  *
@@ -24,10 +24,10 @@ public class RegistroSalas extends javax.swing.JFrame {
      * Creates new form RegistroSalas
      */
     private String idMuseo;
-    private LSNormal listaSalas;
+    private LSSala listaSalas;
     private MainWindow mainWindow;
 
-    public RegistroSalas(String id, LSNormal listaSalas, MainWindow mainWindow) {
+    public RegistroSalas(String id, LSSala listaSalas, MainWindow mainWindow) {
         idMuseo = id;
         this.listaSalas = listaSalas;
         this.mainWindow = mainWindow;
@@ -185,7 +185,7 @@ public class RegistroSalas extends javax.swing.JFrame {
     }//GEN-LAST:event_capacidadSalaActionPerformed
 
     private void idSalaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idSalaMouseClicked
-        String idText = idMuseo + "-" + String.format("%d", listaSalas.nElem() + 1);
+        String idText = idMuseo + "-" + String.format("%d", listaSalas.nroNodos() + 1);
         idSala.setText(idText);
     }//GEN-LAST:event_idSalaMouseClicked
 
@@ -210,7 +210,7 @@ public class RegistroSalas extends javax.swing.JFrame {
             sx.setCapacidad(capacidad);
             sx.setIdSala(id);
             sx.setNombre(nombre);
-            listaSalas.adiFin(sx);
+            listaSalas.adiFinal(sx);
             mainWindow.getPanel2().datosATabla();
             JOptionPane.showMessageDialog(null, "Sala agregada exitosamente");
             reset();

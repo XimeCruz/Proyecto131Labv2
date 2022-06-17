@@ -5,11 +5,7 @@
 package MainWindow;
 
 import RegistroSalas.RegistroSalas;
-import estructuras.Listas.LDNormal;
-import estructuras.Listas.LSNormal;
-import estructuras.Listas.NodoD;
-import estructuras.Listas.NodoS;
-import estructuras.Pila.*;
+import estruc.museo.LSMuseo;
 import java.awt.Color;
 import java.awt.Component;
 import java.io.IOException;
@@ -21,15 +17,24 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import estruc.museo.Museo;
-import estruc.museo.Sala;
+import estruc.museo.NodoM;
+import estruc.persona.Artista;
+import estruc.persona.LSArtista;
+import estruc.persona.LSVisitante;
+import estruc.persona.Visitante;
+import estruc.produccion.LSProduccion;
+import estruc.produccion.NodoP;
+import estruc.produccion.Produccion;
+import estruc.sala.LSSala;
+import estruc.sala.NodoS;
+import estruc.sala.Sala;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import panelArtista.PanelArtista;
 import panelMuseo.PanelMuseo;
 import panelProduccion.PanelProduccion;
 import panelVisitante.PanelVisitante;
 import persistencia.ArchReg;
-import personas.Artista;
-import personas.Visitante;
-import produccion.Produccion;
 
 public class MainWindow extends javax.swing.JFrame {
 
@@ -46,14 +51,14 @@ public class MainWindow extends javax.swing.JFrame {
     private PanelProduccion panel4;
     
     //listas
-    private LDNormal listaMuseos;
-    private LDNormal listaArtistas;
-    private LSNormal listaProducciones;
+    private LSMuseo listaMuseos;
+    private LSArtista listaArtistas;
+    private LSProduccion listaProducciones;
     private String id;
 
     // archivo de persistencia
     private ArchReg arch = new ArchReg("data.txt");
-    public MainWindow() {
+    public MainWindow() throws IOException {
 
 
         initComponents();
@@ -62,29 +67,35 @@ public class MainWindow extends javax.swing.JFrame {
         cargarEstructuras();
         cargarPaneles();
         //agregarMuseosComboBox();
-        //archivo.crear();
+        arch.crear();
 
     }
 
-    public LDNormal getListaMuseos() {
+    public LSMuseo getListaMuseos() {
         return listaMuseos;
     }
 
-    public LDNormal getListaArtistas() {
+    public void setListaMuseos(LSMuseo listaMuseos) {
+        this.listaMuseos = listaMuseos;
+    }
+
+    public LSArtista getListaArtistas() {
         return listaArtistas;
     }
 
-    public void setListaArtistas(LDNormal artistas) {
-        this.listaArtistas = artistas;
+    public void setListaArtistas(LSArtista listaArtistas) {
+        this.listaArtistas = listaArtistas;
     }
 
-    public LSNormal getListaProducciones() {
+    public LSProduccion getListaProducciones() {
         return listaProducciones;
     }
 
-    public void setListaProducciones(LSNormal producciones) {
-        this.listaProducciones = producciones;
+    public void setListaProducciones(LSProduccion listaProducciones) {
+        this.listaProducciones = listaProducciones;
     }
+
+   
 
     public PanelMuseo getPanel2() {
         return panel2;
@@ -95,27 +106,27 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void cargarEstructuras() {
-        listaMuseos = new LDNormal();
-        listaProducciones = new LSNormal();
+        listaMuseos = new LSMuseo();
+        listaProducciones = new LSProduccion();
 
         //String nombre, String tipo, String direccion, String circuito, int id
         Museo m1 = new Museo("San Francisco", "Cultural", "Av. Principal", "Sopocachi S1", "S1-1");
         Museo m2 = new Museo("Artypica", "Arte", "Av. Principal", "Centro C1", "C1-2");
         //String nombre, String idSala, int capacidad, LDNormal listaProducciones
         Sala s11 = new Sala("Principal", "S1-1-1", 40);
-        m1.getListaSalas().adiFin(s11);
+        m1.getListaSalas().adiFinal(s11);
         //String nombre, String fecha, String hora, String tipo, int nroEntradas, double precio
         Produccion p11 = new Produccion("Teatro", "24/12/2021", "14:00", "Teatro", 20, 3.50);
-        s11.getListaProducciones().adiFin(p11);
+        s11.getListaProducciones().adiFinal(p11);
         //int ci, String nombre, String apellido, String genero, String tipo
         Artista a11 = new Artista(1264, "Camila", "Ana", "F", "Escritora");
         Visitante v11 = new Visitante(1264, "Camila", "Ana", "F", 3);
 
-        p11.getListaArtistas().adiFin(a11);
-        p11.getPilaVisitantes().adicionar(v11);
+        p11.getListaArtistas().adiFinal(a11);
+        p11.getListaVisitantes().adiFinal(v11);
 
-        listaMuseos.adiFin(m1);
-        listaMuseos.adiFin(m2);
+        listaMuseos.adiFinal(m1);
+        listaMuseos.adiFinal(m2);
         
         listaMuseos.mostrar();
         listaProducciones.mostrar();
@@ -136,22 +147,19 @@ public class MainWindow extends javax.swing.JFrame {
         int c = 0;
         while(it.hasNext()){
             if (c == 0)
-                listaMuseos = (LSNormal) it.next();
+                listaMuseos = (LSMuseo)it.next();
             else if (c == 1)
-                listaPaquetes = (LSPqteTuristico) it.next();
+                listaArtistas = (LSArtista) it.next();
             else if (c == 2)
-                listaDestinos = (LSDestino) it.next();
-            else if (c == 3)
-                listaGuias = (LSGuia) it.next();
+                listaProducciones = (LSProduccion) it.next();
             c++;
         }
     }
     public void guardarEstructurasArchivo() throws IOException{
         LinkedList<Object> estruct = new LinkedList<>();
-        estruct.addLast(listaViajes);
-        estruct.addLast(listaPaquetes);
-        estruct.addLast(listaDestinos);
-        estruct.addLast(listaGuias);
+        estruct.addLast(listaMuseos);
+        estruct.addLast(listaArtistas);
+        estruct.addLast(listaProducciones);
         
         arch.guardarEstructuras(estruct);
     }
@@ -2182,9 +2190,9 @@ public class MainWindow extends javax.swing.JFrame {
 
                 } else {
                     Museo mx = new Museo(nombre, tipo, direccion, circuito, id);
-                    LSNormal listaSalas = new LSNormal();
+                    LSSala listaSalas = new LSSala();
                     mx.setListaSalas(listaSalas);
-                    listaMuseos.adiFin(mx);
+                    listaMuseos.adiFinal(mx);
                     panel2.datosATabla();
                     JOptionPane.showMessageDialog(null, "Museo registrado exitosamente");
                     //reset();
@@ -2197,11 +2205,11 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarMuseoBtnActionPerformed
 
     private void agregarSalasBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarSalasBtn1ActionPerformed
-        NodoD r = listaMuseos.getP();
+        NodoM r = listaMuseos.getP();
         while (r.getSig() != null) {
             r = r.getSig();
         }
-        Museo mx = (Museo) r.getDato();
+        Museo mx = (Museo) r.getMuseo();
         RegistroSalas registroSalas = new RegistroSalas(idMuseo.getText(), mx.getListaSalas(), this);
         registroSalas.setVisible(true);
     }//GEN-LAST:event_agregarSalasBtn1ActionPerformed
@@ -2210,7 +2218,7 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         String textId1 = circuitoMuseo.getSelectedItem().toString().substring(circuitoMuseo.getSelectedItem().toString().length() - 2);
 
-        String textId = textId1 + "-" + String.format("%d", listaMuseos.nElem() + 1);
+        String textId = textId1 + "-" + String.format("%d", listaMuseos.nroNodos() + 1);
         id = textId;
         //textId.concat(String.valueOf((listaMuseos.nElem())));
         idMuseo.setText(textId);
@@ -2253,11 +2261,11 @@ public class MainWindow extends javax.swing.JFrame {
                 } else {
                     //String nombre, String fecha, String hora, String tipo, String horario, int nroEntradas, double precio
                     Produccion px = new Produccion(nombre, fecha, hora, tipo, nroEntradas, precio);
-                    LSNormal listaArtistas = new LSNormal();
-                    Pila pilaVisitantes = new Pila(nroEntradas);
+                    LSArtista listArtistas = new LSArtista();
+                    LSVisitante listaVisitantes = new LSVisitante();
 
-                    px.setListaArtistas(listaArtistas);
-                    px.setPilaVisitantes(pilaVisitantes);
+                    px.setListaArtistas(listArtistas);
+                    px.setListaVisitantes(listaVisitantes);
                     agregarProduccionASala(comboBoxMuseos.getSelectedItem().toString(), comboBoxSalas.getSelectedItem().toString(), px);
                     //listaProducciones.adiFin(px);
                     panel4.datosATabla();
@@ -2272,18 +2280,19 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarProduccionActionPerformed
 
     public void agregarProduccionASala(String IdMuseo, String IdSala, Produccion x) {
-        NodoD r = listaMuseos.getP();
+        NodoM r = listaMuseos.getP();
+        NodoS s = null;
         while (r != null) {
-            Museo mx = (Museo) r.getDato();
+            Museo mx = (Museo) r.getMuseo();
             if (mx.getId().equals(idMuseo)) {
-                NodoS w = mx.getListaSalas().getCabecera();
-                while (w != null) {
-                    Sala sw = (Sala) w.getDato();
+                s = mx.getListaSalas().getP();
+                while (s != null) {
+                    Sala sw = (Sala) s.getSala();
                     if (sw.getIdSala().equals(IdSala)) {
-                        sw.getListaProducciones().adiFin(x);
+                        sw.getListaProducciones().adiFinal(x);
                         break;
                     } else {
-                        w = w.getSig();
+                        s = s.getSig();
                     }
                 }
             } else {
@@ -2301,9 +2310,9 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_tipoProduccionActionPerformed
     private void agregarMuseosComboBox() {
         comboBoxMuseos.removeAllItems();
-        NodoD q = listaMuseos.getP();
+        NodoM q = listaMuseos.getP();
         while (q != null) {
-            Museo mx = (Museo) q.getDato();
+            Museo mx = (Museo) q.getMuseo();
             comboBoxMuseos.addItem("(" + mx.getId() + ") " + mx.getNombre()); // adiciona cadena a combobox
             q = q.getSig();
         }
@@ -2329,16 +2338,16 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (comboBoxMuseos.getSelectedIndex() != -1) {
             comboBoxSalas.removeAllItems();
-            NodoD r = listaMuseos.getP();
+            NodoM r = listaMuseos.getP();
             while (r != null) {
-                Museo mx = (Museo) r.getDato();
+                Museo mx = (Museo) r.getMuseo();
                 String idMx = "(" + mx.getId() + ") " + mx.getNombre();
                 if (idMx.equals(comboBoxMuseos.getSelectedItem().toString())) {
                     System.out.println("Activado");
-                    LSNormal lsx = mx.getListaSalas();
-                    NodoS w = lsx.getCabecera();
+                    LSSala lsx = mx.getListaSalas();
+                    NodoS w = lsx.getP();
                     while (w != null) {
-                        Sala sx = (Sala) w.getDato();
+                        Sala sx = (Sala) w.getSala();
                         comboBoxSalas.addItem(sx.getIdSala());
                         w = w.getSig();
                     }
@@ -2415,9 +2424,9 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarProduccion1ActionPerformed
     private void agregarMuseosArtistaComboBox() {
         comboBoxMuseosArtista.removeAllItems();
-        NodoD q = listaMuseos.getP();
+        NodoM q = listaMuseos.getP();
         while (q != null) {
-            Museo mx = (Museo) q.getDato();
+            Museo mx = (Museo) q.getMuseo();
             comboBoxMuseosArtista.addItem("(" + mx.getId() + ") " + mx.getNombre()); // adiciona cadena a combobox
             q = q.getSig();
         }
@@ -2425,31 +2434,31 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void agregarMuseosVisitanteComboBox() {
         comboBoxMuseosVisitante.removeAllItems();
-        NodoD q = listaMuseos.getP();
+        NodoM q = listaMuseos.getP();
         while (q != null) {
-            Museo mx = (Museo) q.getDato();
+            Museo mx = (Museo) q.getMuseo();
             comboBoxMuseosVisitante.addItem("(" + mx.getId() + ") " + mx.getNombre()); // adiciona cadena a combobox
             q = q.getSig();
         }
     }
 
     private void agregarArtistaAProduccion(String idMuseo, String idSala, String nombreProduccion, Artista x) {
-        NodoD r = listaMuseos.getP();
+        NodoM r = listaMuseos.getP();
         while (r != null) {
-            Museo mx = (Museo) r.getDato();
+            Museo mx = (Museo) r.getMuseo();
             String idMx = "(" + mx.getId() + ") " + mx.getNombre();
             if (idMx.equals(idMuseo)) {
-                LSNormal lsx = mx.getListaSalas();
-                NodoS w = lsx.getCabecera();
+                LSSala lsx = mx.getListaSalas();
+                NodoS w = lsx.getP();
                 while (w != null) {
-                    Sala sx = (Sala) w.getDato();
+                    Sala sx = (Sala) w.getSala();
                     if (idSala.equals(sx.getIdSala())) {
-                        LDNormal lpx = sx.getListaProducciones();
-                        NodoD z = lpx.getP();
+                        LSProduccion lpx = sx.getListaProducciones();
+                        NodoP z = lpx.getP();
                         while (z != null) {
-                            Produccion px = (Produccion) z.getDato();
+                            Produccion px = (Produccion) z.getProduccion();
                             if (px.getNombre().equals(nombreProduccion)) {
-                                px.getListaArtistas().adiFin(x);
+                                px.getListaArtistas().adiFinal(x);
                                 break;
                             } else {
                                 z = z.getSig();
@@ -2472,15 +2481,15 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (comboBoxMuseosArtista.getSelectedIndex() != -1) {
             comboBoxSalasArtista.removeAllItems();
-            NodoD r = listaMuseos.getP();
+            NodoM r = listaMuseos.getP();
             while (r != null) {
-                Museo mx = (Museo) r.getDato();
+                Museo mx = (Museo) r.getMuseo();
                 String idMx = "(" + mx.getId() + ") " + mx.getNombre();
                 if (idMx.equals(comboBoxMuseosArtista.getSelectedItem().toString())) {
-                    LSNormal lsx = mx.getListaSalas();
-                    NodoS w = lsx.getCabecera();
+                    LSSala lsx = mx.getListaSalas();
+                    NodoS w = lsx.getP();
                     while (w != null) {
-                        Sala sx = (Sala) w.getDato();
+                        Sala sx = (Sala) w.getSala();
                         comboBoxSalasArtista.addItem(sx.getIdSala());
                         w = w.getSig();
                     }
@@ -2504,24 +2513,24 @@ public class MainWindow extends javax.swing.JFrame {
         if (comboBoxSalasArtista.getSelectedIndex() != -1) {
             boolean sw = false;
 
-            NodoD r = listaMuseos.getP();
+            NodoM r = listaMuseos.getP();
             System.out.println("Entra1");
             while (r != null && !sw) {
-                Museo mx = (Museo) r.getDato();
+                Museo mx = (Museo) r.getMuseo();
                 String idMx = "(" + mx.getId() + ") " + mx.getNombre();
                 if (idMx.equals(comboBoxMuseosArtista.getSelectedItem().toString())) {
                     System.out.println("Entra2");
-                    LSNormal lsx = mx.getListaSalas();
-                    NodoS w = lsx.getCabecera();
+                    LSSala lsx = mx.getListaSalas();
+                    NodoS w = lsx.getP();
                     while (w != null && !sw) {
-                        Sala sx = (Sala) w.getDato();
+                        Sala sx = (Sala) w.getSala();
                         if (comboBoxSalasArtista.getSelectedItem().equals(sx.getIdSala())) {
                             System.out.println("Entra3");
-                            LDNormal lpx = sx.getListaProducciones();
-                            NodoD z = lpx.getP();
+                            LSProduccion lpx = sx.getListaProducciones();
+                            NodoP z = lpx.getP();
                             while (z != null && !sw) {
                                 System.out.println("Escribe");
-                                Produccion px = (Produccion) z.getDato();
+                                Produccion px = (Produccion) z.getProduccion();
                                 System.out.println("crea");
                                 comboBoxProduccionesArtista.addItem(px.getNombre());
                                 System.out.println("Escribedesp");
@@ -2590,20 +2599,20 @@ public class MainWindow extends javax.swing.JFrame {
         comboBoxProduccionesVisitante.removeAllItems();
         if (comboBoxSalasVisitante.getSelectedIndex() != -1) {
             boolean sw = false;
-            NodoD r = listaMuseos.getP();
+            NodoM r = listaMuseos.getP();
             while (r != null && !sw) {
-                Museo mx = (Museo) r.getDato();
+                Museo mx = (Museo) r.getMuseo();
                 String idMx = "(" + mx.getId() + ") " + mx.getNombre();
                 if (idMx.equals(comboBoxMuseosVisitante.getSelectedItem().toString())) {
-                    LSNormal lsx = mx.getListaSalas();
-                    NodoS w = lsx.getCabecera();
+                    LSSala lsx = mx.getListaSalas();
+                    NodoS w = lsx.getP();
                     while (w != null && !sw) {
-                        Sala sx = (Sala) w.getDato();
+                        Sala sx = (Sala) w.getSala();
                         if (comboBoxSalasVisitante.getSelectedItem().equals(sx.getIdSala())) {
-                            LDNormal lpx = sx.getListaProducciones();
-                            NodoD z = lpx.getP();
+                            LSProduccion lpx = sx.getListaProducciones();
+                            NodoP z = lpx.getP();
                             while (z != null && !sw) {
-                                Produccion px = (Produccion) z.getDato();
+                                Produccion px = (Produccion) z.getProduccion();
                                 comboBoxProduccionesVisitante.addItem(px.getNombre());
                                 z = z.getSig();
                                 sw = true;
@@ -2625,22 +2634,22 @@ public class MainWindow extends javax.swing.JFrame {
 
     }//GEN-LAST:event_comboBoxSalasVisitanteItemStateChanged
     private void agregarVisitanteAProduccion(String idMuseo, String idSala, String nombreProduccion, Visitante x){
-        NodoD r = listaMuseos.getP();
+        NodoM r = listaMuseos.getP();
         while (r != null) {
-            Museo mx = (Museo) r.getDato();
+            Museo mx = (Museo) r.getMuseo();
             String idMx = "(" + mx.getId() + ") " + mx.getNombre();
             if (idMx.equals(idMuseo)) {
-                LSNormal lsx = mx.getListaSalas();
-                NodoS w = lsx.getCabecera();
+                LSSala lsx = mx.getListaSalas();
+                NodoS w = lsx.getP();
                 while (w != null) {
-                    Sala sx = (Sala) w.getDato();
+                    Sala sx = (Sala) w.getSala();
                     if (idSala.equals(sx.getIdSala())) {
-                        LDNormal lpx = sx.getListaProducciones();
-                        NodoD z = lpx.getP();
+                        LSProduccion lpx = sx.getListaProducciones();
+                        NodoP z = lpx.getP();
                         while (z != null) {
-                            Produccion px = (Produccion) z.getDato();
+                            Produccion px = (Produccion) z.getProduccion();
                             if (px.getNombre().equals(nombreProduccion)) {
-                                px.getPilaVisitantes().adicionar(x);
+                                px.getListaVisitantes().adiFinal(x);
                                 break;
                             } else {
                                 z = z.getSig();
@@ -2666,15 +2675,15 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (comboBoxMuseosVisitante.getSelectedIndex() != -1) {
             comboBoxSalasVisitante.removeAllItems();
-            NodoD r = listaMuseos.getP();
+            NodoM r = listaMuseos.getP();
             while (r != null) {
-                Museo mx = (Museo) r.getDato();
+                Museo mx = (Museo) r.getMuseo();
                 String idMx = "(" + mx.getId() + ") " + mx.getNombre();
                 if (idMx.equals(comboBoxMuseosVisitante.getSelectedItem().toString())) {
-                    LSNormal lsx = mx.getListaSalas();
-                    NodoS w = lsx.getCabecera();
+                    LSSala lsx = mx.getListaSalas();
+                    NodoS w = lsx.getP();
                     while (w != null) {
-                        Sala sx = (Sala) w.getDato();
+                        Sala sx = (Sala) w.getSala();
                         comboBoxSalasVisitante.addItem(sx.getIdSala());
                         w = w.getSig();
                     }
@@ -2744,22 +2753,22 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void idTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idTicketActionPerformed
         // TODO add your handling code here:
-        NodoD r = listaMuseos.getP();
+        NodoM r = listaMuseos.getP();
         while (r != null) {
-            Museo mx = (Museo) r.getDato();
+            Museo mx = (Museo) r.getMuseo();
             String idMx = "(" + mx.getId() + ") " + mx.getNombre();
             if (idMx.equals(comboBoxMuseosVisitante.getSelectedItem().toString())) {
-                LSNormal lsx = mx.getListaSalas();
-                NodoS w = lsx.getCabecera();
+                LSSala lsx = mx.getListaSalas();
+                NodoS w = lsx.getP();
                 while (w != null) {
-                    Sala sx = (Sala) w.getDato();
+                    Sala sx = (Sala) w.getSala();
                     if ((comboBoxSalasVisitante.getSelectedItem().toString()).equals(sx.getIdSala())) {
-                        LDNormal lpx = sx.getListaProducciones();
-                        NodoD z = lpx.getP();
+                        LSProduccion lpx = sx.getListaProducciones();
+                        NodoP z = lpx.getP();
                         while (z != null) {
-                            Produccion px = (Produccion) z.getDato();
+                            Produccion px = (Produccion) z.getProduccion();
                             if (px.getNombre().equals(nombreProduccion)) {
-                                int idT = px.getPilaVisitantes().nElem()+1;
+                                int idT = px.getListaVisitantes().nroNodos()+1;
                                 idTicket.setText(String.format("%f", idT));
                                 break;
                             } else {
@@ -2823,7 +2832,12 @@ public class MainWindow extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 
-                MainWindow a = new MainWindow();
+                MainWindow a = null;
+                try {
+                    a = new MainWindow();
+                } catch (IOException ex) {
+                    Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 a.dispose();
                 a.setUndecorated(true);
                 a.setVisible(true);

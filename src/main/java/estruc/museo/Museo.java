@@ -16,6 +16,10 @@ public class Museo implements Serializable{
     private String nombre, tipo, direccion, circuito, id;
     private LSSala listaSalas;
 
+    public Museo(String san_Francisco, String cultural, String av_Principal, String sopocachi_S1, String s11) {
+       
+    }
+
     public String getNombre() {
         return nombre;
     }

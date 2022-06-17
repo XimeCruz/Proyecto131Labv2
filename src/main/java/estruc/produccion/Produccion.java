@@ -30,6 +30,10 @@ public class Produccion {
         this.precio = precio;
     }
 
+    public Produccion(String teatro, String string, String string0, String teatro0, int i, double d) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public String getNombre() {
         return nombre;
     }
