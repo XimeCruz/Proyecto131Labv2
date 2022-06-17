@@ -212,6 +212,7 @@ public class RegistroSalas extends javax.swing.JFrame {
             sx.setNombre(nombre);
             listaSalas.adiFinal(sx);
             mainWindow.getPanel2().datosATabla();
+            mainWindow.getPanelSalas().datosATabla();
             JOptionPane.showMessageDialog(null, "Sala agregada exitosamente");
             reset();
             this.dispose();

@@ -85,6 +85,14 @@ public final class MainWindow extends javax.swing.JFrame {
         this.listaMuseos = listaMuseos;
     }
 
+    public PanelSalas getPanelSalas() {
+        return panelSalas;
+    }
+
+    public void setPanelSalas(PanelSalas panelSalas) {
+        this.panelSalas = panelSalas;
+    }
+    
     public PanelMuseo getPanel2() {
         return panel2;
     }
@@ -2600,17 +2608,17 @@ public final class MainWindow extends javax.swing.JFrame {
                     while (w != null && !sw) {
                         Sala sx = (Sala) w.getSala();
                         if (comboBoxSalasArtista.getSelectedItem().equals(sx.getIdSala())) {
+                            sw = true;
                             System.out.println("Entra3");
                             LSProduccion lpx = sx.getListaProducciones();
                             NodoP z = lpx.getP();
-                            while (z != null && !sw) {
+                            while (z != null) {
                                 System.out.println("Escribe");
                                 Produccion px = (Produccion) z.getProduccion();
                                 System.out.println("crea");
                                 comboBoxProduccionesArtista.addItem(px.getNombre());
                                 System.out.println("Escribedesp");
                                 z = z.getSig();
-                                sw = true;
 
                             }
 
@@ -2685,11 +2693,11 @@ public final class MainWindow extends javax.swing.JFrame {
                         if (comboBoxSalasVisitante.getSelectedItem().equals(sx.getIdSala())) {
                             LSProduccion lpx = sx.getListaProducciones();
                             NodoP z = lpx.getP();
-                            while (z != null && !sw) {
+                            sw = true;
+                            while (z != null) {
                                 Produccion px = (Produccion) z.getProduccion();
                                 comboBoxProduccionesVisitante.addItem(px.getNombre());
                                 z = z.getSig();
-                                sw = true;
 
                             }
 
