@@ -138,6 +138,9 @@ public class MainWindow extends javax.swing.JFrame {
         //int ci, String nombre, String apellido, String genero, String tipo
         Artista a11 = new Artista(1264, "Camila", "Ana", "F", "Escritora");
         Visitante v11 = new Visitante(1264, "Camila", "Ana", "F", 3);
+
+        p11.getListaArtistas().adiFinal(a11);
+        p11.getListaVisitantes().adiFinal(v11);
         /*LSVisitante lSVisitante = new LSVisitante();
         listaArtistas.adiFinal(a11);
         lSVisitante.adiFinal(v11);
@@ -620,6 +623,7 @@ public class MainWindow extends javax.swing.JFrame {
         addMuseum.setBackground(new java.awt.Color(255, 255, 255));
         addMuseum.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 3, new java.awt.Color(153, 153, 153)));
         addMuseum.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        addMuseum.setName(""); // NOI18N
         addMuseum.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addMuseumMouseClicked(evt);
@@ -2320,18 +2324,20 @@ public class MainWindow extends javax.swing.JFrame {
 
     public void agregarProduccionASala(String IdMuseo, String IdSala, Produccion x) {
         NodoM r = listaMuseos.getP();
-        NodoS s = null;
-        while (r != null) {
+        boolean sw = false;
+        while (r != null && !sw) {
             Museo mx = (Museo) r.getMuseo();
-            if (mx.getId().equals(idMuseo)) {
-                s = mx.getListaSalas().getP();
-                while (s != null) {
-                    Sala sw = (Sala) s.getSala();
-                    if (sw.getIdSala().equals(IdSala)) {
-                        sw.getListaProducciones().adiFinal(x);
-                        break;
+            String idMx = "(" + mx.getId() + ") " + mx.getNombre();
+            if (idMx.equals(IdMuseo)) {
+                NodoS w = mx.getListaSalas().getP();
+                while (w != null && !sw) {
+                    Sala sx = (Sala) w.getSala();
+                    if (sx.getIdSala().equals(IdSala)) {
+                        System.out.println("produccion agregada");
+                        sx.getListaProducciones().adiFinal(x);
+                        sw = true;
                     } else {
-                        s = s.getSig();
+                        w = w.getSig();
                     }
                 }
             } else {
