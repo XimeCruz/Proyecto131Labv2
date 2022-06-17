@@ -2,37 +2,34 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
-package museo;
-import java.io.Serializable;
+package estruc.produccion;
 
 /**
  *
- * @author W10
+ * @author Ximena Cruz
  */
-public class LSMuseo implements Serializable{
+public class LSProduccion {
+    private NodoP p;
 
-    private NodoM p;
-
-    public LSMuseo() {
+    public LSProduccion() {
         p = null;
     }
 
-    public NodoM getP() {
+    public NodoP getP() {
         return p;
     }
 
-    public void setP(NodoM p) {
+    public void setP(NodoP p) {
         this.p = p;
     }
 
-    public void adiFinal(Viaje v) {
-        NodoV nue = new NodoV();
-        nue.setViaje(v);
+    public void adiFinal(Produccion p) {
+        NodoP nue = new NodoP();
+        nue.setProduccion(p);
         if (getP() == null) {
             setP(nue);
         } else {
-            NodoV q = getP();
+            NodoP q = getP();
             while (q.getSig() != null) {
                 q = q.getSig();
             }
@@ -41,11 +38,11 @@ public class LSMuseo implements Serializable{
     }
 
     public void mostrar() {
-        NodoV q = getP();
-        System.out.println("---------- Lista de Museos ---------------");
+        NodoP q = getP();
+        System.out.println("---------- Lista de Producciones ---------------");
         if (q != null) {
             while (q != null) {
-                q.getViaje().mostrar();
+                q.getProduccion().mostrar();
                 q = q.getSig();
             }
         } else {
@@ -53,13 +50,13 @@ public class LSMuseo implements Serializable{
         }
     }
 
-    public NodoV eliFinal() {
-        NodoV q = getP();
+    public NodoP eliFinal() {
+        NodoP q = getP();
         if (q != null) {
             if (q.getSig() == null) {
                 setP(null);
             } else {
-                NodoV r = getP();
+                NodoP r = getP();
                 while (q.getSig() != null) {
                     r = q;
                     q = q.getSig();
@@ -69,13 +66,15 @@ public class LSMuseo implements Serializable{
         }
         return q;
     }
-    public int nroNodos(){
+
+    public int nroNodos() {
         int c = 0;
-        NodoV q = getP();
-        while(q != null){
+        NodoP q = getP();
+        while (q != null) {
             c++;
             q = q.getSig();
         }
         return c;
     }
+	
 }

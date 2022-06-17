@@ -7,7 +7,7 @@ package panelMuseo;
 import MainWindow.MainWindow;
 import estructuras.Listas.LDNormal;
 import estructuras.Listas.NodoD;
-import museo.Museo;
+import estruc.museo.Museo;
 
 /**
  *

@@ -9,8 +9,8 @@ import estructuras.Listas.LDNormal;
 import estructuras.Listas.LSNormal;
 import estructuras.Listas.NodoD;
 import estructuras.Listas.NodoS;
-import museo.Museo;
-import museo.Sala;
+import estruc.museo.Museo;
+import estruc.museo.Sala;
 import personas.Artista;
 import produccion.Produccion;
 

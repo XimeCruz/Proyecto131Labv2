@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import museo.Museo;
-import museo.Sala;
+import estruc.museo.Museo;
+import estruc.museo.Sala;
 
 /**
  *
