@@ -2506,6 +2506,7 @@ public class MainWindow extends javax.swing.JFrame {
                             Produccion px = (Produccion) z.getProduccion();
                             if (px.getNombre().equals(nombreProduccion)) {
                                 px.getListaArtistas().adiFinal(x);
+                                System.out.println("Se logro");
                                 sw = true;
                             } else {
                                 z = z.getSig();
@@ -2684,22 +2685,24 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxMuseosVisitanteActionPerformed
     private void agregarVisitanteAProduccion(String idMuseo, String idSala, String nombreProduccion, Visitante x){
         NodoM r = listaMuseos.getP();
-        while (r != null) {
+        boolean sw = false;
+        while (r != null && !sw) {
             Museo mx = (Museo) r.getMuseo();
             String idMx = "(" + mx.getId() + ") " + mx.getNombre();
             if (idMx.equals(idMuseo)) {
                 LSSala lsx = mx.getListaSalas();
                 NodoS w = lsx.getP();
-                while (w != null) {
+                while (w != null && !sw) {
                     Sala sx = (Sala) w.getSala();
                     if (idSala.equals(sx.getIdSala())) {
                         LSProduccion lpx = sx.getListaProducciones();
                         NodoP z = lpx.getP();
-                        while (z != null) {
+                        while (z != null && !sw) {
                             Produccion px = (Produccion) z.getProduccion();
                             if (px.getNombre().equals(nombreProduccion)) {
                                 px.getListaVisitantes().adiFinal(x);
-                                break;
+                                System.out.println("Se logro");
+                                sw = true;
                             } else {
                                 z = z.getSig();
                             }
