@@ -19,19 +19,18 @@ public class Produccion {
     private int nroEntradas;//total
     private double precio;
 
-    public Produccion(String nombre, String tipo, String fecha, String hora, LSVisitante listaVisitantes, LSArtista listaArtistas, int nroEntradas, double precio) {
-        this.nombre = nombre;
-        this.tipo = tipo;
-        this.fecha = fecha;
-        this.hora = hora;
-        this.listaVisitantes = listaVisitantes;
-        this.listaArtistas = listaArtistas;
-        this.nroEntradas = nroEntradas;
-        this.precio = precio;
+    public Produccion() {
     }
 
-    public Produccion(String teatro, String string, String string0, String teatro0, int i, double d) {
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Produccion(String nombre, String fecha, String hora, String tipo, int nroEntradas, double precio) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.listaVisitantes = new LSVisitante();
+        this.listaArtistas = new LSArtista();
+        this.fecha = fecha;
+        this.hora = hora;
+        this.nroEntradas = nroEntradas;
+        this.precio = precio;
     }
 
     public String getNombre() {
