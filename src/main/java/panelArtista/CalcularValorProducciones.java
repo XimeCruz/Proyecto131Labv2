@@ -4,17 +4,37 @@
  */
 package panelArtista;
 
+import MainWindow.MainWindow;
+import estruc.museo.LSMuseo;
+import estruc.museo.Museo;
+import estruc.museo.NodoM;
+import estruc.persona.Artista;
+import estruc.persona.LSArtista;
+import estruc.persona.NodoA;
+import estruc.produccion.LSProduccion;
+import estruc.produccion.NodoP;
+import estruc.sala.NodoS;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jeloskaisabel
  */
 public class CalcularValorProducciones extends javax.swing.JPanel {
-
+    private MainWindow mainWindow;
+    private LSMuseo museos;
+    private int nProd;
     /**
      * Creates new form CalcularValorProducciones
      */
-    public CalcularValorProducciones() {
+    public CalcularValorProducciones(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
+        this.mainWindow = mainWindow;
+        this.museos = mainWindow.getListaMuseos();
+        
         initComponents();
+        cargarComboBoxMuseo();
     }
 
     /**
@@ -29,7 +49,7 @@ public class CalcularValorProducciones extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel44 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
         listaProduccionesArtista = new javax.swing.JList<>();
         jLabel35 = new javax.swing.JLabel();
         ciArtista = new javax.swing.JTextField();
@@ -41,13 +61,13 @@ public class CalcularValorProducciones extends javax.swing.JPanel {
         jSeparator4 = new javax.swing.JSeparator();
         tipoArtista = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
-        nroProduccionesArtista = new javax.swing.JTextField();
-        jLabel41 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
         valorNeto = new javax.swing.JTextField();
-        museoArtista = new javax.swing.JComboBox<>();
+        comboBoxMuseo = new javax.swing.JComboBox<>();
         jLabel38 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        nroProducciones = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(218, 228, 232));
         jPanel1.setForeground(new java.awt.Color(0, 0, 104));
@@ -58,12 +78,7 @@ public class CalcularValorProducciones extends javax.swing.JPanel {
         jLabel44.setForeground(new java.awt.Color(255, 255, 255));
         jLabel44.setText("Producciones");
 
-        listaProduccionesArtista.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(listaProduccionesArtista);
+        jScrollPane1.setViewportView(listaProduccionesArtista);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -72,9 +87,9 @@ public class CalcularValorProducciones extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel44))
-                .addContainerGap(42, Short.MAX_VALUE))
+                    .addComponent(jLabel44)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -82,7 +97,7 @@ public class CalcularValorProducciones extends javax.swing.JPanel {
                 .addGap(47, 47, 47)
                 .addComponent(jLabel44)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -105,6 +120,11 @@ public class CalcularValorProducciones extends javax.swing.JPanel {
         buscarBtn.setForeground(new java.awt.Color(255, 255, 255));
         buscarBtn.setText("Calcular");
         buscarBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        buscarBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buscarBtnMouseClicked(evt);
+            }
+        });
         buscarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buscarBtnActionPerformed(evt);
@@ -137,19 +157,6 @@ public class CalcularValorProducciones extends javax.swing.JPanel {
 
         jSeparator5.setForeground(new java.awt.Color(0, 0, 104));
 
-        nroProduccionesArtista.setBackground(new java.awt.Color(218, 228, 232));
-        nroProduccionesArtista.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 104)));
-        nroProduccionesArtista.setCaretColor(new java.awt.Color(0, 0, 104));
-        nroProduccionesArtista.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nroProduccionesArtistaActionPerformed(evt);
-            }
-        });
-
-        jLabel41.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel41.setForeground(new java.awt.Color(0, 0, 104));
-        jLabel41.setText("Nro. Producciones");
-
         jLabel42.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel42.setForeground(new java.awt.Color(0, 0, 104));
         jLabel42.setText("Valor Neto");
@@ -163,9 +170,9 @@ public class CalcularValorProducciones extends javax.swing.JPanel {
             }
         });
 
-        museoArtista.setBackground(new java.awt.Color(218, 228, 232));
-        museoArtista.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        museoArtista.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Concierto", "Sinfonía", "Presentación de arte", "Conversatorio", "Visita Guiada", "Proyección escénica", "Presentaciones de libro", " " }));
+        comboBoxMuseo.setBackground(new java.awt.Color(218, 228, 232));
+        comboBoxMuseo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        comboBoxMuseo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Concierto", "Sinfonía", "Presentación de arte", "Conversatorio", "Visita Guiada", "Proyección escénica", "Presentaciones de libro", " " }));
 
         jLabel38.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(0, 0, 104));
@@ -175,58 +182,59 @@ public class CalcularValorProducciones extends javax.swing.JPanel {
         jLabel40.setForeground(new java.awt.Color(0, 0, 104));
         jLabel40.setText("Bs.");
 
+        jLabel43.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel43.setForeground(new java.awt.Color(0, 0, 104));
+        jLabel43.setText("Nro. Obras");
+
+        nroProducciones.setBackground(new java.awt.Color(218, 228, 232));
+        nroProducciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 104)));
+        nroProducciones.setCaretColor(new java.awt.Color(0, 0, 104));
+        nroProducciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nroProduccionesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 1, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel39)
-                                        .addGap(357, 357, 357))
-                                    .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nombreArtista, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tipoArtista, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel37)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jSeparator2)
-                                        .addComponent(ciArtista)
-                                        .addComponent(museoArtista, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                                    .addComponent(jLabel41)
-                                                    .addGap(50, 50, 50)
-                                                    .addComponent(nroProduccionesArtista, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                                    .addComponent(jLabel42)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(valorNeto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGap(3, 3, 3)
-                                            .addComponent(jLabel40)))
-                                    .addComponent(jLabel35))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jLabel38))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(115, 115, 115)
-                                .addComponent(buscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel38)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78))
+                        .addGap(115, 115, 115)
+                        .addComponent(buscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel37)
+                            .addComponent(jSeparator2)
+                            .addComponent(ciArtista)
+                            .addComponent(comboBoxMuseo, javax.swing.GroupLayout.Alignment.TRAILING, 0, 341, Short.MAX_VALUE)
+                            .addComponent(jLabel35)
+                            .addComponent(nombreArtista)
+                            .addComponent(jSeparator4)
+                            .addComponent(jLabel39)
+                            .addComponent(tipoArtista)
+                            .addComponent(jSeparator5)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel43)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(nroProducciones, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel42)
+                                .addGap(55, 55, 55)
+                                .addComponent(valorNeto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addComponent(jLabel40)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,34 +246,34 @@ public class CalcularValorProducciones extends javax.swing.JPanel {
                 .addComponent(ciArtista, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel38)
-                .addGap(12, 12, 12)
-                .addComponent(museoArtista, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboBoxMuseo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel37)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nombreArtista, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel39)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tipoArtista, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel41)
-                    .addComponent(nroProduccionesArtista, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel42)
                     .addComponent(valorNeto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel40))
-                .addGap(18, 18, 18))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel43)
+                    .addComponent(nroProducciones, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -273,8 +281,9 @@ public class CalcularValorProducciones extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 49, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(55, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(78, 78, 78))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,15 +302,101 @@ public class CalcularValorProducciones extends javax.swing.JPanel {
         p5.setVisible(false);
         reset();*/
     }//GEN-LAST:event_buscarBtnActionPerformed
-    public void llenarcomboBoxMuseo(){
+    public void cargarComboBoxMuseo(){
+        comboBoxMuseo.removeAllItems();
+        NodoM q = museos.getP();
+        while (q != null) {
+            Museo mx = (Museo) q.getMuseo();
+            comboBoxMuseo.addItem(mx.getId()); // adiciona cadena a combobox
+            q = q.getSig();
+        }
+       
+    }
+    public boolean buscarArtista(LSArtista la , int ci){
+        NodoA r = la.getP();
+        while(r!=null){
+            if(r.getDato().getCi() == ci)
+                return true;
+            r = r.getSig();
+        }
+        return false;
+    }
+    public int contarProducciones(LSProduccion lp, int ci){
+        int c = 0;
+        NodoP r = lp.getP();
+        DefaultListModel modProd = new DefaultListModel();
+        listaProduccionesArtista.setModel(modProd);
+        while(r!=null){            
+            if(buscarArtista(r.getProduccion().getListaArtistas(), ci)){
+                modProd.addElement(r.getProduccion().getNombre());
+               c++;
+            }
+            r = r.getSig();
+        }
+        return c;
+    }
+    public double buscarArtista(LSProduccion lp, int ci){
+        double t = 0;
+        NodoP r = lp.getP();
+        while(r!=null){            
+            if(buscarArtista(r.getProduccion().getListaArtistas(), ci)){
+                t += r.getProduccion().getListaVisitantes().nroNodos()*r.getProduccion().getPrecio();
+            }
+            r = r.getSig();
+        }
+        return t;
+        
+    }
+    public double calcular(int ci, String idMuseo){
+        double t = 0;
+        NodoM r = museos.getP();
+        boolean sw = false;
+        while(r!=null && !sw){
+            if(r.getMuseo().getId().equals(idMuseo)){
+                sw = true;
+                NodoS s = r.getMuseo().getListaSalas().getP();
+                while(s!=null){
+                    t += buscarArtista(s.getSala().getListaProducciones(), ci);
+                    s = s.getSig();
+                }
+                
+            }
+            else
+                r = r.getSig();
+        }
+        return t;
+    }
+    public Artista buscarArtista(int ci, String id){
+        boolean sw = false;
+        NodoM r = museos.getP();
+        while(r!=null && !sw){
+            if(r.getMuseo().getId().equals(id)){
+                sw = true;
+                NodoS t = r.getMuseo().getListaSalas().getP();
+                while(t!=null){
+                    NodoP q = t.getSala().getListaProducciones().getP();
+                    nProd = contarProducciones(t.getSala().getListaProducciones(), ci);
+
+                    while(q!=null){
+                        NodoA a = q.getProduccion().getListaArtistas().getP();
+                        while(a!=null){
+                            if(a.getDato().getCi() == ci)
+                                return a.getDato();
+                            a = a.getSig();
+                        }
+                        q = q.getSig();
+                    }
+                    t = t.getSig();
+                }
+            }
+            else
+                r = r.getSig();
+        }
+        return null;
     }
     private void nombreArtistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreArtistaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreArtistaActionPerformed
-
-    private void nroProduccionesArtistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nroProduccionesArtistaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nroProduccionesArtistaActionPerformed
 
     private void valorNetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorNetoActionPerformed
         // TODO add your handling code here:
@@ -311,28 +406,68 @@ public class CalcularValorProducciones extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tipoArtistaActionPerformed
 
+    private void nroProduccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nroProduccionesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nroProduccionesActionPerformed
+
+    private void buscarBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarBtnMouseClicked
+        // TODO add your handling code here:
+           try {
+
+                // Obtener datos de los campos de texto
+                String id, ci;
+                id = comboBoxMuseo.getSelectedItem().toString();
+                ci = ciArtista.getText();
+                // Validacion de campos no vacios
+                if (ci.equals("") || id.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Llene todos los campos",
+                            "Error al realizar la búsqueda", JOptionPane.ERROR_MESSAGE);
+
+                } else {
+                    //String nombre, String fecha, String hora, String tipo, String horario, int nroEntradas, double precio
+                    Artista ax = buscarArtista((int)Integer.parseInt(ci), id);
+                    if(ax!=null){
+                        nombreArtista.setText(ax.getNombre());
+                        tipoArtista.setText(ax.getTipo());
+                        System.out.println(ax.getTipo());
+                        double total = calcular(Integer.parseInt(ci), id);
+                        valorNeto.setText(String.valueOf(total));
+                        nroProducciones.setText(String.format("%d", nProd));
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Artista no encontrado");
+                    }
+                    
+
+                    
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+    }//GEN-LAST:event_buscarBtnMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscarBtn;
     private javax.swing.JTextField ciArtista;
+    private javax.swing.JComboBox<String> comboBoxMuseo;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JList<String> listaProduccionesArtista;
-    private javax.swing.JComboBox<String> museoArtista;
     private javax.swing.JTextField nombreArtista;
-    private javax.swing.JTextField nroProduccionesArtista;
+    private javax.swing.JTextField nroProducciones;
     private javax.swing.JTextField tipoArtista;
     private javax.swing.JTextField valorNeto;
     // End of variables declaration//GEN-END:variables

@@ -11,7 +11,7 @@ import estruc.sala.LSSala;
 import estruc.sala.Sala;
 import estruc.produccion.LSProduccion;
 import estruc.produccion.NodoP;
-import estruc.sala.NodoS ;
+import estruc.sala.NodoS;
 import estruc.produccion.Produccion;
 
 /**
@@ -25,6 +25,9 @@ public class PanelVisitante extends javax.swing.JPanel {
      */
     private MainWindow mainWindow;
     private LSMuseo museos;
+    private int total;
+    private int mujeres;
+    private int hombres;
 
     public PanelVisitante() {
         initComponents();
@@ -35,9 +38,15 @@ public class PanelVisitante extends javax.swing.JPanel {
         this.mainWindow = mainWindow;
         museos = mainWindow.getListaMuseos();
         datosATabla();
+        
+        
     }
 
     public void datosATabla() {
+        hombres = 0;
+        mujeres = 0;
+        total = 0;
+        int c = 0;
         tabla.clearTable();
         NodoM r = museos.getP();
         while (r != null) {
@@ -48,18 +57,24 @@ public class PanelVisitante extends javax.swing.JPanel {
             NodoS w = lsx.getP();
             while (w != null) {
                 Sala sx = w.getSala();
-                
+
                 LSProduccion lpx = sx.getListaProducciones();
                 NodoP z = lpx.getP();
                 while (z != null) {
                     Produccion px = z.getProduccion();
                     LSVisitante pvx = px.getListaVisitantes();
-        
-                    NodoV vaux=pvx.getP();
-                    while (vaux!=null) {
-                       Visitante vx=vaux.getDato();
-                        visitanteAFila(vx, idMx, ""+sx.getIdSala(), px.getNombre());
-                        vaux=vaux.getSig();
+
+                    NodoV vaux = pvx.getP();
+                    while (vaux != null) {
+                        Visitante vx = vaux.getDato();
+                        if (vx.getGenero().equals("M")) {
+                            mujeres++;
+                        } else {
+                            hombres++;
+                        }
+                        visitanteAFila(vx, idMx, "" + sx.getIdSala(), px.getNombre());
+                        vaux = vaux.getSig();
+                        total++;
                     }
                     z = z.getSig();
 
@@ -70,6 +85,10 @@ public class PanelVisitante extends javax.swing.JPanel {
 
             r = r.getSig();
         }
+        totalPart.setText(String.format("%d", total));
+        visitantesHombres.setText(String.format("%d", hombres));
+        visitantesMujeres.setText(String.format("%d", mujeres));
+        
     }
 
     //ci, edad, nombre, paterno, materno, genero    
@@ -90,6 +109,14 @@ public class PanelVisitante extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new componentes.CustomTable();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        totalPart = new javax.swing.JLabel();
+        visitantesHombres = new javax.swing.JLabel();
+        visitantesMujeres = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -112,31 +139,110 @@ public class PanelVisitante extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabla);
 
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 104));
+        jLabel16.setText("Visitantes");
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(0, 0, 104));
+        jLabel17.setText("Registrados");
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(0, 0, 104));
+        jLabel18.setText("Visitantes");
+
+        totalPart.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        totalPart.setForeground(new java.awt.Color(0, 0, 0));
+        totalPart.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        totalPart.setText("asdf");
+
+        visitantesHombres.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        visitantesHombres.setForeground(new java.awt.Color(0, 51, 204));
+        visitantesHombres.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        visitantesHombres.setText("H");
+
+        visitantesMujeres.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        visitantesMujeres.setForeground(new java.awt.Color(255, 102, 255));
+        visitantesMujeres.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        visitantesMujeres.setText("M");
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 51, 153));
+        jLabel19.setText("Mujeres");
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(0, 0, 104));
+        jLabel20.setText("Hombres");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 860, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(100, 100, 100)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(101, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 773, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(totalPart)
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(visitantesMujeres, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(70, 70, 70)
+                                .addComponent(visitantesHombres, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel19)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 558, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(77, 77, 77)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(78, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18)
+                            .addComponent(totalPart, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel16)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel20))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(visitantesHombres, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(visitantesMujeres, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JScrollPane jScrollPane1;
     private componentes.CustomTable tabla;
+    private javax.swing.JLabel totalPart;
+    private javax.swing.JLabel visitantesHombres;
+    private javax.swing.JLabel visitantesMujeres;
     // End of variables declaration//GEN-END:variables
 }

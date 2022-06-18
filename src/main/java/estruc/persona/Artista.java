@@ -20,7 +20,7 @@ public class Artista extends Persona implements Serializable {
 
     public Artista(int ci, String nombre, String apellido, String genero, String tipo) {
         super(ci, nombre, apellido, genero);
-        this.tipo = null;
+        this.tipo = tipo;
     }
 
     public String getTipo() {
@@ -30,7 +30,7 @@ public class Artista extends Persona implements Serializable {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    void mostrar(){
+    public void mostrar(){
         super.mostrar();
         System.out.println("tipo : "+tipo);
     }
