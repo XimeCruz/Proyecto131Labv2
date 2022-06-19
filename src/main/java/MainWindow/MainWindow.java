@@ -32,14 +32,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import panelArtista.CalcularValorProducciones;
 import panelArtista.PanelArtista;
+import panelArtista.PanelOrdenarProduccionesArtista;
 import panelMuseo.BuscarMuseoPanel;
 import panelMuseo.PanelGeneroMuseo;
 
 import panelMuseo.PanelMuseo;
 import panelProduccion.PanelProduccion;
+import panelProduccion.PanelProduccionesMasCostosas;
 import panelSalas.PanelSalas;
 import panelSalas.PanelSalasProducciones;
 import panelVisitante.PanelVisitante;
+import panelVisitante.PanelVisitanteBuscar;
 import persistencia.ArchReg;
 
 
@@ -59,6 +62,9 @@ public final class MainWindow extends javax.swing.JFrame {
     private PanelSalasProducciones panelSalasProducciones;
     private CalcularValorProducciones calcularValorProducciones;
     private PanelGeneroMuseo panelGeneroMuseo;
+    private PanelOrdenarProduccionesArtista panelOrdenarProduccionesArtista;
+    private PanelProduccionesMasCostosas panelProduccionesMasCostosas;
+    private PanelVisitanteBuscar panelVisitanteBuscar;
  
     //listas
     private LSMuseo listaMuseos = new LSMuseo();
@@ -70,11 +76,12 @@ public final class MainWindow extends javax.swing.JFrame {
     private ArchReg arch = new ArchReg("dataReal.txt");
     public MainWindow() throws IOException {
         initComponents();
-        
+        cargarEstructuras();
+        nMuseosPart.setText(String.format("%d", listaMuseos.nroNodos()));
         //arch.crear();
         //arch.listarEstructuras();
         //cargarEstructurasArchivo();
-        cargarEstructuras();
+        
         //guardarEstructurasArchivo();
         cargarPaneles();
 
@@ -153,7 +160,7 @@ public final class MainWindow extends javax.swing.JFrame {
         Produccion p11 = new Produccion("Teatro", "24/12/2021", "14:00", "Teatro", 20, 3.50);
         p11.setListaArtistas(lSArtista);
         p11.setListaVisitantes(lSVisitante);
-        listaMuseos = new LSMuseo();
+        //listaMuseos = new LSMuseo();
         p11.mostrar();
 
         //String nombre, String tipo, String direccion, String circuito, int id
@@ -195,20 +202,32 @@ public final class MainWindow extends javax.swing.JFrame {
     }
 
     public void cargarPaneles() {
+         System.out.println("panel2 "+listaMuseos.nroNodos());
         panel2 = new PanelMuseo(this);
+        System.out.println("panel3 "+listaMuseos.nroNodos());
         panel3 = new PanelArtista(this);
+        System.out.println("panel4 "+listaMuseos.nroNodos());
         panel4 = new PanelProduccion(this);
+        System.out.println("panel5 "+listaMuseos.nroNodos());
         panel5 = new PanelVisitante(this);
+        System.out.println("panelSalas "+listaMuseos.nroNodos());
         panelSalas = new PanelSalas(this);
+        System.out.println("buscarPanelSalas "+listaMuseos.nroNodos());
         buscarPanelMuseo = new BuscarMuseoPanel(this);
+        System.out.println("panelSalasProducciones "+listaMuseos.nroNodos());
         panelSalasProducciones = new PanelSalasProducciones(this);
+        System.out.println("calcularValor "+listaMuseos.nroNodos());
         calcularValorProducciones = new CalcularValorProducciones(this);
+        System.out.println("genero"+listaMuseos.nroNodos());
         panelGeneroMuseo = new PanelGeneroMuseo(this);
+        System.out.println("ordenra "+listaMuseos.nroNodos());
+        panelOrdenarProduccionesArtista = new PanelOrdenarProduccionesArtista(this);
+        panelProduccionesMasCostosas = new PanelProduccionesMasCostosas(this);
+        panelVisitanteBuscar = new PanelVisitanteBuscar(this);
+
   
     }
-    public void settingIcons(){
 
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -265,7 +284,6 @@ public final class MainWindow extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel14 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         addMuseum = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -281,17 +299,11 @@ public final class MainWindow extends javax.swing.JFrame {
         addArtist = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
-        detailsArtist = new javax.swing.JPanel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
         updateArtist = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        deleteArtist = new javax.swing.JPanel();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
         jLabel74 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         nMuseosPart = new javax.swing.JLabel();
@@ -350,6 +362,7 @@ public final class MainWindow extends javax.swing.JFrame {
         updateMuseum1 = new javax.swing.JPanel();
         jLabel57 = new javax.swing.JLabel();
         jLabel58 = new javax.swing.JLabel();
+        jLabel94 = new javax.swing.JLabel();
         deleteArtista = new javax.swing.JPanel();
         jLabel59 = new javax.swing.JLabel();
         jLabel60 = new javax.swing.JLabel();
@@ -359,16 +372,10 @@ public final class MainWindow extends javax.swing.JFrame {
         addVisitante = new javax.swing.JPanel();
         jLabel64 = new javax.swing.JLabel();
         jLabel65 = new javax.swing.JLabel();
-        verVisitante = new javax.swing.JPanel();
-        jLabel66 = new javax.swing.JLabel();
-        jLabel67 = new javax.swing.JLabel();
         updateVisitante = new javax.swing.JPanel();
         jLabel68 = new javax.swing.JLabel();
         jLabel69 = new javax.swing.JLabel();
         jLabel70 = new javax.swing.JLabel();
-        deleteVisitante = new javax.swing.JPanel();
-        jLabel71 = new javax.swing.JLabel();
-        jLabel72 = new javax.swing.JLabel();
         jLabel73 = new javax.swing.JLabel();
         jLabel75 = new javax.swing.JLabel();
         p11_addArtistaPanel = new javax.swing.JPanel();
@@ -667,9 +674,8 @@ public final class MainWindow extends javax.swing.JFrame {
         jLabel15.setText("Bienvenido");
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("Sección de Museos");
-
-        jLabel16.setText("i");
 
         addMuseum.setBackground(new java.awt.Color(255, 255, 255));
         addMuseum.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 3, new java.awt.Color(153, 153, 153)));
@@ -738,10 +744,10 @@ public final class MainWindow extends javax.swing.JFrame {
 
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel24.setText("icono");
-        museumDetails.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 80, 80));
+        museumDetails.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 80, 80));
 
         jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(0, 204, 204));
+        jLabel25.setForeground(new java.awt.Color(255, 0, 102));
         jLabel25.setText("Buscar Museo");
         museumDetails.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
 
@@ -762,51 +768,35 @@ public final class MainWindow extends javax.swing.JFrame {
 
         jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel42.setText("icono");
-        addArtist.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 80, 80));
-
-        detailsArtist.setBackground(new java.awt.Color(255, 255, 255));
-        detailsArtist.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 3, new java.awt.Color(153, 153, 153)));
-        detailsArtist.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel28.setText("icono");
-        detailsArtist.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 80, 80));
-
-        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(0, 204, 204));
-        jLabel29.setText("Ver Producción");
-        detailsArtist.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
+        addArtist.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 80, 80));
 
         updateArtist.setBackground(new java.awt.Color(255, 255, 255));
         updateArtist.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 3, new java.awt.Color(153, 153, 153)));
+        updateArtist.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateArtistMouseClicked(evt);
+            }
+        });
         updateArtist.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel30.setText("icono");
-        updateArtist.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 80, 80));
+        updateArtist.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, -10, 80, 80));
 
         jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel31.setText("Actualizar Producción");
-        updateArtist.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+        jLabel31.setText("Costosas ++");
+        updateArtist.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
 
+        jLabel34.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel34.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel34.setText("Producciones");
+        updateArtist.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
+
+        jLabel17.setBackground(new java.awt.Color(255, 255, 255));
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel17.setText("Sección de Artistas");
-
-        deleteArtist.setBackground(new java.awt.Color(255, 255, 255));
-        deleteArtist.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 3, new java.awt.Color(153, 153, 153)));
-        deleteArtist.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel32.setText("icono");
-        deleteArtist.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 80, 80));
-
-        jLabel33.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel33.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel33.setText("Eliminar Producción");
-        deleteArtist.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
-
-        jLabel34.setText("i");
+        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel17.setText("Sección de Producciones");
 
         jLabel74.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel74.setForeground(new java.awt.Color(0, 0, 104));
@@ -829,47 +819,40 @@ public final class MainWindow extends javax.swing.JFrame {
         p1Layout.setHorizontalGroup(
             p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, p1Layout.createSequentialGroup()
+                            .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(p1Layout.createSequentialGroup()
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(nMuseosPart, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(p1Layout.createSequentialGroup()
+                                    .addComponent(jLabel15)
+                                    .addGap(54, 54, 54)
+                                    .addComponent(jLabel21)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel74))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, p1Layout.createSequentialGroup()
+                            .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(p1Layout.createSequentialGroup()
+                                    .addComponent(addArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(54, 54, 54)
+                                    .addComponent(updateArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, p1Layout.createSequentialGroup()
+                                    .addComponent(addMuseum, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(13, 13, 13)
+                                    .addComponent(updateMuseum, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(deleteMuseum, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(museumDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(p1Layout.createSequentialGroup()
-                        .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(p1Layout.createSequentialGroup()
-                                .addComponent(addMuseum, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(updateMuseum, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(deleteMuseum, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, Short.MAX_VALUE))
-                            .addGroup(p1Layout.createSequentialGroup()
-                                .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(p1Layout.createSequentialGroup()
-                                            .addComponent(jLabel14)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jLabel16)))
-                                    .addComponent(jLabel15))
-                                .addGap(75, 75, 75)
-                                .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(nMuseosPart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(106, 106, 106)))
-                        .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(museumDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel74)))
-                    .addGroup(p1Layout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel34))
-                    .addGroup(p1Layout.createSequentialGroup()
-                        .addComponent(addArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(updateArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(deleteArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(detailsArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel17)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         p1Layout.setVerticalGroup(
             p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -877,38 +860,31 @@ public final class MainWindow extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(p1Layout.createSequentialGroup()
-                        .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(p1Layout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel74))
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
-                        .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel16))
+                        .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(p1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, p1Layout.createSequentialGroup()
                         .addComponent(jLabel21)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nMuseosPart, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nMuseosPart, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel74))
+                        .addGap(52, 52, 52)))
                 .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(addMuseum, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(updateMuseum, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deleteMuseum, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(museumDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel34))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(44, 44, 44)
+                .addComponent(jLabel17)
+                .addGap(18, 18, 18)
                 .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(addArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(updateArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(detailsArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(94, Short.MAX_VALUE))
+                    .addComponent(updateArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         centrePanel.add(p1, "card2");
@@ -1382,7 +1358,8 @@ public final class MainWindow extends javax.swing.JFrame {
         jLabel44.setText("Bienvenido");
 
         jLabel53.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel53.setText("Sección de Museos");
+        jLabel53.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel53.setText("Sección de Artistas");
 
         jLabel54.setText("i");
 
@@ -1407,16 +1384,26 @@ public final class MainWindow extends javax.swing.JFrame {
 
         updateMuseum1.setBackground(new java.awt.Color(255, 255, 255));
         updateMuseum1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 3, new java.awt.Color(153, 153, 153)));
+        updateMuseum1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateMuseum1MouseClicked(evt);
+            }
+        });
         updateMuseum1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel57.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel57.setText("icono");
-        updateMuseum1.add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 80, 80));
+        updateMuseum1.add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 80, 50));
 
-        jLabel58.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel58.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel58.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel58.setText("Actualizar Artista");
-        updateMuseum1.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+        jLabel58.setText("Producciones & Ganancia");
+        updateMuseum1.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+
+        jLabel94.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel94.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel94.setText("Ver Artistas");
+        updateMuseum1.add(jLabel94, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
 
         deleteArtista.setBackground(new java.awt.Color(255, 255, 255));
         deleteArtista.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 3, new java.awt.Color(153, 153, 153)));
@@ -1434,7 +1421,7 @@ public final class MainWindow extends javax.swing.JFrame {
         jLabel60.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel60.setForeground(new java.awt.Color(255, 0, 0));
         jLabel60.setText("Calcular Valor Obras");
-        deleteArtista.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+        deleteArtista.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
         verArtista.setBackground(new java.awt.Color(255, 255, 255));
         verArtista.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 3, new java.awt.Color(153, 153, 153)));
@@ -1473,21 +1460,13 @@ public final class MainWindow extends javax.swing.JFrame {
         jLabel65.setText("icono");
         addVisitante.add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 80, 80));
 
-        verVisitante.setBackground(new java.awt.Color(255, 255, 255));
-        verVisitante.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 3, new java.awt.Color(153, 153, 153)));
-        verVisitante.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel66.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel66.setText("icono");
-        verVisitante.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 80, 80));
-
-        jLabel67.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel67.setForeground(new java.awt.Color(0, 204, 204));
-        jLabel67.setText("Ver Visitante");
-        verVisitante.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, -1));
-
         updateVisitante.setBackground(new java.awt.Color(255, 255, 255));
         updateVisitante.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 3, new java.awt.Color(153, 153, 153)));
+        updateVisitante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateVisitanteMouseClicked(evt);
+            }
+        });
         updateVisitante.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel68.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1496,24 +1475,12 @@ public final class MainWindow extends javax.swing.JFrame {
 
         jLabel69.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel69.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel69.setText("Actualizar Visitante");
-        updateVisitante.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+        jLabel69.setText("Buscar Visitante");
+        updateVisitante.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
 
         jLabel70.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel70.setText("Sección de Artistas");
-
-        deleteVisitante.setBackground(new java.awt.Color(255, 255, 255));
-        deleteVisitante.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 3, new java.awt.Color(153, 153, 153)));
-        deleteVisitante.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel71.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel71.setText("icono");
-        deleteVisitante.add(jLabel71, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 80, 80));
-
-        jLabel72.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel72.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel72.setText("Eliminar Vistante");
-        deleteVisitante.add(jLabel72, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+        jLabel70.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel70.setText("Sección de Visitantes");
 
         jLabel73.setText("i");
 
@@ -1533,21 +1500,16 @@ public final class MainWindow extends javax.swing.JFrame {
             .addGroup(p11Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(p11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(p11Layout.createSequentialGroup()
-                            .addComponent(jLabel70)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabel73))
-                        .addGroup(p11Layout.createSequentialGroup()
-                            .addComponent(addVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(updateVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(deleteVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(verVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(p11Layout.createSequentialGroup()
+                        .addComponent(jLabel70)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel73))
                     .addGroup(p11Layout.createSequentialGroup()
                         .addGroup(p11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(p11Layout.createSequentialGroup()
+                                .addComponent(addVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(updateVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(p11Layout.createSequentialGroup()
                                 .addGroup(p11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1567,7 +1529,7 @@ public final class MainWindow extends javax.swing.JFrame {
                         .addGroup(p11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(verArtista, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel75))))
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         p11Layout.setVerticalGroup(
             p11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1595,10 +1557,8 @@ public final class MainWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(p11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(addVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(updateVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(verVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(111, Short.MAX_VALUE))
+                    .addComponent(updateVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         centrePanel.add(p11, "card2");
@@ -2993,6 +2953,22 @@ public final class MainWindow extends javax.swing.JFrame {
         setPanel(panelGeneroMuseo);
     }//GEN-LAST:event_updateMuseumMouseClicked
 
+    private void updateMuseum1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMuseum1MouseClicked
+        // TODO add your handling code here:
+
+        setPanel(panelOrdenarProduccionesArtista);
+    }//GEN-LAST:event_updateMuseum1MouseClicked
+
+    private void updateArtistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateArtistMouseClicked
+        // TODO add your handling code here:
+        setPanel(panelProduccionesMasCostosas);
+    }//GEN-LAST:event_updateArtistMouseClicked
+
+    private void updateVisitanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateVisitanteMouseClicked
+        // TODO add your handling code here:
+        setPanel(panelVisitanteBuscar);
+    }//GEN-LAST:event_updateVisitanteMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -3102,11 +3078,8 @@ public final class MainWindow extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboBoxSalas;
     private javax.swing.JComboBox<String> comboBoxSalasArtista;
     private javax.swing.JComboBox<String> comboBoxSalasVisitante;
-    private javax.swing.JPanel deleteArtist;
     private javax.swing.JPanel deleteArtista;
     private javax.swing.JPanel deleteMuseum;
-    private javax.swing.JPanel deleteVisitante;
-    private javax.swing.JPanel detailsArtist;
     private javax.swing.JTextField direccionMuseo;
     private com.toedter.calendar.JDateChooser fechaProduccion;
     private javax.swing.JComboBox<String> generoArtista;
@@ -3122,7 +3095,6 @@ public final class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -3135,13 +3107,9 @@ public final class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
@@ -3177,14 +3145,10 @@ public final class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
-    private javax.swing.JLabel jLabel66;
-    private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel70;
-    private javax.swing.JLabel jLabel71;
-    private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel74;
     private javax.swing.JLabel jLabel75;
@@ -3208,6 +3172,7 @@ public final class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
     private javax.swing.JLabel jLabel93;
+    private javax.swing.JLabel jLabel94;
     private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -3258,6 +3223,5 @@ public final class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel updateMuseum1;
     private javax.swing.JPanel updateVisitante;
     private javax.swing.JPanel verArtista;
-    private javax.swing.JPanel verVisitante;
     // End of variables declaration//GEN-END:variables
 }

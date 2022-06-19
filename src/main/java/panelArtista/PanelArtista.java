@@ -86,7 +86,7 @@ public class PanelArtista extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new componentes.CustomTable();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -109,28 +109,27 @@ public class PanelArtista extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabla);
 
-        jLabel1.setText("PAnel Artista");
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 104));
+        jLabel16.setText("Artistas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(jLabel16)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
         );
@@ -138,7 +137,7 @@ public class PanelArtista extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JScrollPane jScrollPane1;
     private componentes.CustomTable tabla;
     // End of variables declaration//GEN-END:variables

@@ -58,7 +58,7 @@ public class PanelMuseo extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new componentes.CustomTable();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -81,36 +81,35 @@ public class PanelMuseo extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabla);
 
-        jLabel1.setText("Panel Museo");
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 104));
+        jLabel16.setText("Museos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(jLabel1)))
-                .addContainerGap(66, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(34, 34, 34)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JScrollPane jScrollPane1;
     private componentes.CustomTable tabla;
     // End of variables declaration//GEN-END:variables

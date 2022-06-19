@@ -72,6 +72,7 @@ public class PanelSalas extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new componentes.CustomTable();
+        jLabel16 = new javax.swing.JLabel();
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -81,7 +82,7 @@ public class PanelSalas extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "ID Sala", "Capacidad", "Nro. Prodcucciones", "ID Museo"
+                "Nombre", "ID Sala", "Capacidad", "Nro. Producciones", "ID Museo"
             }
         ) {
             Class[] types = new Class [] {
@@ -94,26 +95,35 @@ public class PanelSalas extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabla);
 
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 104));
+        jLabel16.setText("Salas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(105, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(99, Short.MAX_VALUE)
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(24, 24, 24))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JScrollPane jScrollPane1;
     private componentes.CustomTable tabla;
     // End of variables declaration//GEN-END:variables

@@ -29,11 +29,11 @@ public class CalcularValorProducciones extends javax.swing.JPanel {
      * Creates new form CalcularValorProducciones
      */
     public CalcularValorProducciones(MainWindow mainWindow) {
-        this.mainWindow = mainWindow;
+        initComponents();
         this.mainWindow = mainWindow;
         this.museos = mainWindow.getListaMuseos();
         
-        initComponents();
+        
         cargarComboBoxMuseo();
     }
 

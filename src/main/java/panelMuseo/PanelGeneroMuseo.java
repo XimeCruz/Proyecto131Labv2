@@ -21,16 +21,19 @@ public class PanelGeneroMuseo extends javax.swing.JPanel {
     /**
      * Creates new form PanelGeneroMuseo
      */
-    private MainWindow mainWidnow;
+    private MainWindow mainWindow;
     private LSMuseo museos;
 
     public PanelGeneroMuseo(MainWindow mainWindow) {
         initComponents();
+        this.mainWindow = mainWindow;
         museos = mainWindow.getListaMuseos();
-        museos = ordenar(museos, "F");
+        ordenar("F");
         System.out.println("Ordenando");
         museos.mostrar();
         datosATabla();
+        System.out.println("Datos a tabla");
+        museos.mostrar();
     }
 
     public int contarGenero(Museo m, String g) {
@@ -60,7 +63,7 @@ public class PanelGeneroMuseo extends javax.swing.JPanel {
         return c;
     }
 
-    public Museo buscarMayor(LSMuseo a, String g) {
+    /*public Museo buscarMayor(LSMuseo a, String g) {
         NodoM r = a.getP();
         int may = contarGenero(r.getMuseo(), g);
         NodoM nodoM = r;
@@ -91,21 +94,49 @@ public class PanelGeneroMuseo extends javax.swing.JPanel {
             r = r.getSig();
         }
         return null;
-    }
+    }*/
 
-    public LSMuseo ordenar(LSMuseo a, String g) {
-        int nNodos = a.nroNodos();
-
+    /*public void ordenar(String g) {
+        int nNodos = museos.nroNodos();
         LSMuseo aux = new LSMuseo();
         for (int i = 1; i <= nNodos; i++) {
-            Museo may = buscarMayor(a, g);
+            Museo may = buscarMayor(museos, g);
             aux.adiFinal(may);
         }
 
-        a = aux;
+        museos = aux;
 
-        return a;
+    }*/
+    public void ordenar(String g) {
+        int nNodos = museos.nroNodos();
+        for (int i = 1; i <= nNodos; i++) {
+            NodoM r = museos.getP();
+            int may = -1;         
+            for (int j = 1; j <= nNodos - i - 1; j++) {
+                int vis = contarGenero(r.getMuseo(), g);
+                if (vis > may) {
+                    may = vis;
+                }
+                r = r.getSig();
+            }
+            r = museos.getP();
+            NodoM w = r;
+            for (int j = 1; j <= nNodos - i - 1; j++) {
+                int vis = contarGenero(r.getMuseo(), g);
+                if (vis == may) {
+                    if(r.equals(museos.getP())){
+                        museos.setP(r.getSig());
+                    }
+                    else{
+                        w.setSig(r.getSig());
+                    }
+                    break;
+                }
+                w = r;
+                r = r.getSig();
+            }
 
+        }
     }
 
     /**
@@ -218,7 +249,7 @@ public class PanelGeneroMuseo extends javax.swing.JPanel {
     }
     private void comboBoxGeneroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboBoxGeneroItemStateChanged
         // TODO add your handling code here:
-        museos = ordenar(museos, comboBoxGenero.getSelectedItem().toString());
+        ordenar(comboBoxGenero.getSelectedItem().toString());
         datosATabla();
 
 
