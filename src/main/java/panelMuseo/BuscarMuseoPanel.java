@@ -20,6 +20,9 @@ import estruc.produccion.Produccion;
 import estruc.sala.LSSala;
 import estruc.sala.NodoS;
 import estruc.sala.Sala;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 
 /**
@@ -540,8 +543,17 @@ public class BuscarMuseoPanel extends javax.swing.JPanel {
     }
     private void salirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBtnActionPerformed
         // TODO add your handling code here:
-
-        /*p1_addMuseumPanel.setVisible(false);
+        this.hide();
+        MainWindow m;
+        try {
+            m = new MainWindow();
+            m.show();
+        } catch (IOException ex) {
+            Logger.getLogger(BuscarMuseoPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //p1_addMuseumPanel.setVisible(false);
+        /*
         p1.setVisible(true);
         p2.setVisible(false);
         p3.setVisible(false);
