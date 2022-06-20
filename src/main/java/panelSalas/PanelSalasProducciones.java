@@ -128,8 +128,7 @@ public class PanelSalasProducciones extends javax.swing.JPanel {
         } else if (criterio.equals("Artistas")) {
             may = buscarMayorArtistas();
         }
-        NodoM q = museos.getP();
-        
+        NodoM q = museos.getP();     
         while (q != null) {
             Museo museo = (Museo) q.getMuseo();
             NodoS r = museo.getListaSalas().getP();
@@ -156,7 +155,6 @@ public class PanelSalasProducciones extends javax.swing.JPanel {
                 r = r.getSig();
             }
             q = q.getSig();
-
         }
     }
 

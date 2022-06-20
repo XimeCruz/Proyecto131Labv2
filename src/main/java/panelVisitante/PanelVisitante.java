@@ -66,7 +66,7 @@ public class PanelVisitante extends javax.swing.JPanel {
                     NodoV vaux = pvx.getP();
                     while (vaux != null) {
                         Visitante vx = vaux.getDato();
-                        if (vx.getGenero().equals("M")) {
+                        if (vx.getGenero().equals("F")) {
                             mujeres++;
                         } else {
                             hombres++;

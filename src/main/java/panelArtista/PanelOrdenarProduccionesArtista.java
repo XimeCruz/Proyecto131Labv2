@@ -42,13 +42,10 @@ public class PanelOrdenarProduccionesArtista extends javax.swing.JPanel {
         //System.out.println("Nombre P"+r.getMuseo().getNombre());
         while (r != null) {
             NodoS w = r.getMuseo().getListaSalas().getP();
-            System.out.println("Museo: " + r.getMuseo().getNombre());
             while (w != null) {
                 NodoP z = w.getSala().getListaProducciones().getP();
-                System.out.println("Sala: " + w.getSala().getNombre());
                 while (z != null) {
                     NodoA s = z.getProduccion().getListaArtistas().getP();
-                    System.out.println("Produccion: " + z.getProduccion().getNombre());
                     while (s != null) {
                         pilaArtistas.adicionar(s.getDato());
                         System.out.println(s.getDato().getNombre());
@@ -77,8 +74,6 @@ public class PanelOrdenarProduccionesArtista extends javax.swing.JPanel {
         pilaValorProducciones.mostrar();
 
         ordenarArtistas("Nro. Producciones");
-        //System.out.println("Producciones");
-
         datosATabla();
 
     }
@@ -181,21 +176,6 @@ public class PanelOrdenarProduccionesArtista extends javax.swing.JPanel {
                 if (criterio.equals("Nro. Producciones")) {
                     if (mayProd < nx) {
                         mayProd = nx;
-                        
-                        /*if (mayProd != nx) {
-                            int np =(int) auxProd2.eliminar();
-                            Artista artista = (Artista) auxArt2.eliminar();
-                            double valor = (double ) auxValProd2.eliminar();
-                            auxArt1.adicionar(artista);
-                            auxProd1.adicionar(np);
-                            auxValProd1.adicionar(valor);
-                            while (mayProd != np) {
-                                int np 
-                                auxArt1.adicionar(auxArt2.eliminar());
-                                auxProd1.adicionar(auxProd2.eliminar());
-                                auxValProd1.adicionar(auxValProd2.eliminar());
-                            }
-                        }*/
                         if (!auxArt2.esVacia()&&!sw) {
                             auxArt1.adicionar(auxArt2.eliminar());
                             auxProd1.adicionar(auxProd2.eliminar());
@@ -215,14 +195,6 @@ public class PanelOrdenarProduccionesArtista extends javax.swing.JPanel {
                 } else {
                     if (mayValProd < tx) {
                         mayValProd = tx;
-                        /*if (mayValProd != tx) {
-                            while (mayValProd != nx) {
-
-                                auxArt1.adicionar(auxArt2.eliminar());
-                                auxProd1.adicionar(auxProd2.eliminar());
-                                auxValProd1.adicionar(auxValProd2.eliminar());
-                            }
-                        }*/
                         if (!auxArt2.esVacia() && !sw) {
                             auxArt1.adicionar(auxArt2.eliminar());
                             auxProd1.adicionar(auxProd2.eliminar());
@@ -239,10 +211,7 @@ public class PanelOrdenarProduccionesArtista extends javax.swing.JPanel {
                         auxValProd1.adicionar(tx);
                     }
                 }
-                System.out.println("rec");
-                //auxValProd2.mostrar();
                 auxProd2.mostrar();
-
             }
             pilaArtistas.vaciar(auxArt1);
             pilaProducciones.vaciar(auxProd1);
@@ -250,21 +219,8 @@ public class PanelOrdenarProduccionesArtista extends javax.swing.JPanel {
 
         }
         pilaArtistas.vaciar(auxArt2);
-        System.out.println("Ordenado por: " + criterio);
-        Pila aux = new Pila(500);
-
-        while (!pilaArtistas.esVacia()) {
-            Artista px = (Artista) pilaArtistas.eliminar();
-            aux.adicionar(px);
-            System.out.println("\t" + px.getNombre());
-        }
-        pilaArtistas.vaciar(aux);
-
         pilaProducciones.vaciar(auxProd2);
         pilaValorProducciones.vaciar(auxValProd2);
-        pilaProducciones.mostrar();
-        pilaValorProducciones.mostrar();
-
     }
 
     public void datosATabla() {
