@@ -63,6 +63,19 @@ public class PanelOrdenarProduccionesArtista extends javax.swing.JPanel {
             r = r.getSig();
         }
         llenarPilaProducciones();
+        System.out.println("antes de ordnena");
+        Pila aux = new Pila(500);
+
+        while (!pilaArtistas.esVacia()) {
+            Artista px = (Artista) pilaArtistas.eliminar();
+            aux.adicionar(px);
+            System.out.println("\t" + px.getNombre());
+        }
+        pilaArtistas.vaciar(aux);
+
+        pilaProducciones.mostrar();
+        pilaValorProducciones.mostrar();
+
         ordenarArtistas("Nro. Producciones");
         //System.out.println("Producciones");
 
@@ -158,16 +171,32 @@ public class PanelOrdenarProduccionesArtista extends javax.swing.JPanel {
         Pila auxValProd1 = new Pila(pilaValorProducciones.nElem());
         Pila auxValProd2 = new Pila(pilaValorProducciones.nElem());
         while (!pilaArtistas.esVacia()) {
-            int mayProd = 0;
-            double mayValProd = 0;
+            int mayProd = -1;
+            double mayValProd = -1;
+            boolean sw = true;
             while (!pilaArtistas.esVacia()) {
                 double tx = (double) pilaValorProducciones.eliminar();
                 int nx = (int) pilaProducciones.eliminar();
                 Artista ax = (Artista) pilaArtistas.eliminar();
                 if (criterio.equals("Nro. Producciones")) {
-                    if (mayProd <= nx) {
+                    if (mayProd < nx) {
                         mayProd = nx;
-                        if (mayProd != nx) {
+                        
+                        /*if (mayProd != nx) {
+                            int np =(int) auxProd2.eliminar();
+                            Artista artista = (Artista) auxArt2.eliminar();
+                            double valor = (double ) auxValProd2.eliminar();
+                            auxArt1.adicionar(artista);
+                            auxProd1.adicionar(np);
+                            auxValProd1.adicionar(valor);
+                            while (mayProd != np) {
+                                int np 
+                                auxArt1.adicionar(auxArt2.eliminar());
+                                auxProd1.adicionar(auxProd2.eliminar());
+                                auxValProd1.adicionar(auxValProd2.eliminar());
+                            }
+                        }*/
+                        if (!auxArt2.esVacia()&&!sw) {
                             auxArt1.adicionar(auxArt2.eliminar());
                             auxProd1.adicionar(auxProd2.eliminar());
                             auxValProd1.adicionar(auxValProd2.eliminar());
@@ -176,6 +205,7 @@ public class PanelOrdenarProduccionesArtista extends javax.swing.JPanel {
                         auxArt2.adicionar(ax);
                         auxProd2.adicionar(nx);
                         auxValProd2.adicionar(tx);
+                        sw = false;
 
                     } else {
                         auxArt1.adicionar(ax);
@@ -183,9 +213,17 @@ public class PanelOrdenarProduccionesArtista extends javax.swing.JPanel {
                         auxValProd1.adicionar(tx);
                     }
                 } else {
-                    if (mayValProd <= tx) {
+                    if (mayValProd < tx) {
                         mayValProd = tx;
-                        if (mayValProd != tx) {
+                        /*if (mayValProd != tx) {
+                            while (mayValProd != nx) {
+
+                                auxArt1.adicionar(auxArt2.eliminar());
+                                auxProd1.adicionar(auxProd2.eliminar());
+                                auxValProd1.adicionar(auxValProd2.eliminar());
+                            }
+                        }*/
+                        if (!auxArt2.esVacia() && !sw) {
                             auxArt1.adicionar(auxArt2.eliminar());
                             auxProd1.adicionar(auxProd2.eliminar());
                             auxValProd1.adicionar(auxValProd2.eliminar());
@@ -193,6 +231,7 @@ public class PanelOrdenarProduccionesArtista extends javax.swing.JPanel {
                         auxArt2.adicionar(ax);
                         auxProd2.adicionar(nx);
                         auxValProd2.adicionar(tx);
+                        sw = false;
 
                     } else {
                         auxArt1.adicionar(ax);
@@ -200,6 +239,9 @@ public class PanelOrdenarProduccionesArtista extends javax.swing.JPanel {
                         auxValProd1.adicionar(tx);
                     }
                 }
+                System.out.println("rec");
+                //auxValProd2.mostrar();
+                auxProd2.mostrar();
 
             }
             pilaArtistas.vaciar(auxArt1);
@@ -208,8 +250,20 @@ public class PanelOrdenarProduccionesArtista extends javax.swing.JPanel {
 
         }
         pilaArtistas.vaciar(auxArt2);
+        System.out.println("Ordenado por: " + criterio);
+        Pila aux = new Pila(500);
+
+        while (!pilaArtistas.esVacia()) {
+            Artista px = (Artista) pilaArtistas.eliminar();
+            aux.adicionar(px);
+            System.out.println("\t" + px.getNombre());
+        }
+        pilaArtistas.vaciar(aux);
+
         pilaProducciones.vaciar(auxProd2);
         pilaValorProducciones.vaciar(auxValProd2);
+        pilaProducciones.mostrar();
+        pilaValorProducciones.mostrar();
 
     }
 

@@ -33,7 +33,9 @@ public class PanelSalasProducciones extends javax.swing.JPanel {
         initComponents();
         this.mainWindow = mainWindow;
         museos = mainWindow.getListaMuseos();
+        
         datosATabla("Producciones");
+        
     }
 
     public int buscarMayorProducciones() {
@@ -44,7 +46,7 @@ public class PanelSalasProducciones extends javax.swing.JPanel {
             NodoS r = museo.getListaSalas().getP();
             while (r != null) {
                 Sala sx = (Sala) r.getSala();
-                if (sx.getListaProducciones().nroNodos() > may) {
+                if (sx.getListaProducciones().nroNodos() >= may) {
                     may = sx.getListaProducciones().nroNodos();
                 }
                 r = r.getSig();
@@ -59,7 +61,7 @@ public class PanelSalasProducciones extends javax.swing.JPanel {
         NodoP r = sx.getListaProducciones().getP();
         int c = 0;
         while (r != null) {
-            c = +r.getProduccion().getListaVisitantes().nroNodos();
+            c += r.getProduccion().getListaVisitantes().nroNodos();
             r = r.getSig();
         }
         return c;
@@ -69,7 +71,7 @@ public class PanelSalasProducciones extends javax.swing.JPanel {
         NodoP r = sx.getListaProducciones().getP();
         int c = 0;
         while (r != null) {
-            c = +r.getProduccion().getListaArtistas().nroNodos();
+            c += r.getProduccion().getListaArtistas().nroNodos();
             r = r.getSig();
         }
         return c;
@@ -85,7 +87,7 @@ public class PanelSalasProducciones extends javax.swing.JPanel {
             while (r != null) {
                 Sala sx = (Sala) r.getSala();
                 int nv = contarVisitantes(sx);
-                if (nv > may) {
+                if (nv >= may) {
                     may = nv;
                 }
                 r = r.getSig();
@@ -105,7 +107,7 @@ public class PanelSalasProducciones extends javax.swing.JPanel {
             while (r != null) {
                 Sala sx = (Sala) r.getSala();
                 int nv = contarArtistas(sx);
-                if (nv > may) {
+                if (nv >= may) {
                     may = nv;
                 }
                 r = r.getSig();
@@ -127,6 +129,7 @@ public class PanelSalasProducciones extends javax.swing.JPanel {
             may = buscarMayorArtistas();
         }
         NodoM q = museos.getP();
+        
         while (q != null) {
             Museo museo = (Museo) q.getMuseo();
             NodoS r = museo.getListaSalas().getP();
@@ -148,6 +151,7 @@ public class PanelSalasProducciones extends javax.swing.JPanel {
                 }
                 if (sw) {
                     SalaAFila(sx, museo.getId(), np, na, nv);
+                    
                 }
                 r = r.getSig();
             }
