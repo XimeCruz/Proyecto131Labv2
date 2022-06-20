@@ -46,7 +46,6 @@ public class PanelVisitante extends javax.swing.JPanel {
         hombres = 0;
         mujeres = 0;
         total = 0;
-        int c = 0;
         tabla.clearTable();
         NodoM r = museos.getP();
         while (r != null) {

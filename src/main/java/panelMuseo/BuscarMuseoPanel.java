@@ -92,11 +92,6 @@ public class BuscarMuseoPanel extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 104));
 
-        listaSalasMuseo.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(listaSalasMuseo);
 
         jLabel44.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -464,9 +459,7 @@ public class BuscarMuseoPanel extends javax.swing.JPanel {
         NodoM r = museos.getP();
         while(r!=null&&!sw){
             Museo mx = (Museo)r.getMuseo();
-             System.out.println("acepta");
             if(mx.getId().equals(id)){
-                System.out.println("Museo encontado");
                 sw = true;
                 String nombre = mx.getNombre();
                 String circuito = mx.getCircuito();
@@ -480,7 +473,6 @@ public class BuscarMuseoPanel extends javax.swing.JPanel {
                 int nVis = 0;
                 int nProducciones = 0;
                 while(q!=null){
-                    System.out.println("capa1");
                     Sala sx = (Sala)q.getSala();
                     LSProduccion lp = sx.getListaProducciones();
                     nProducciones = lp.nroNodos();
@@ -488,7 +480,6 @@ public class BuscarMuseoPanel extends javax.swing.JPanel {
                     DefaultListModel modProd = new DefaultListModel();
                     listaProduccionesMuseo.setModel(modProd);
                     while(s!=null){
-                        System.out.println("capa2");
                         Produccion px = (Produccion) s.getProduccion();
                         LSArtista la = px.getListaArtistas();
                         nArt = la.nroNodos();
@@ -496,20 +487,16 @@ public class BuscarMuseoPanel extends javax.swing.JPanel {
                         listaArtistasMuseo.setModel(modArt);
                         NodoA t = la.getP();
                         while(t!=null){
-                            System.out.println("capa3");
                             Artista ax = (Artista) t.getDato();
                             modArt.addElement(ax.getNombre());
                             t = t.getSig();
                         }
                        LSVisitante lSVisitante = px.getListaVisitantes();
-                
-                        
                         DefaultListModel modVis = new DefaultListModel();
                         listaVisitantesMuseo.setModel(modVis);
                         nVis = lSVisitante.nroNodos();
                         NodoV z = lSVisitante.getP();
                         while(z!=null){
-                            System.out.println("capault");
                             Visitante vx = (Visitante)z.getDato();
                             modVis.addElement(vx.getNombre());
                             z = z.getSig();

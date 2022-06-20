@@ -292,7 +292,7 @@ public class PanelVisitanteBuscar extends javax.swing.JPanel {
                                 sw = true;
                             }
                         } else if (criterio.equals("Apellido")) {
-                            if (t.getDato().getNombre().equals(apellido)) {
+                            if (t.getDato().getApellido().equals(apellido)) {
                                 sw = true;
                             }
                         }

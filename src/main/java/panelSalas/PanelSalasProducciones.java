@@ -36,7 +36,7 @@ public class PanelSalasProducciones extends javax.swing.JPanel {
         datosATabla("Producciones");
     }
 
-    public int buscarMayor() {
+    public int buscarMayorProducciones() {
         int may = 0;
         NodoM q = museos.getP();
         while (q != null) {
@@ -120,7 +120,7 @@ public class PanelSalasProducciones extends javax.swing.JPanel {
         tabla.clearTable();
         int may = 0;
         if (criterio.equals("Producciones")) {
-            may = buscarMayor();
+            may = buscarMayorProducciones();
         } else if (criterio.equals("Visitantes")) {
             may = buscarMayorVisitantes();
         } else if (criterio.equals("Artistas")) {

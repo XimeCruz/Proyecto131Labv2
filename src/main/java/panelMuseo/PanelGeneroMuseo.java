@@ -63,50 +63,6 @@ public class PanelGeneroMuseo extends javax.swing.JPanel {
         return c;
     }
 
-    /*public Museo buscarMayor(LSMuseo a, String g) {
-        NodoM r = a.getP();
-        int may = contarGenero(r.getMuseo(), g);
-        NodoM nodoM = r;
-        while (r != null) {
-            int vis = contarGenero(r.getMuseo(), g);
-
-            if (vis > may) {
-                may = vis;
-                nodoM = r;
-            }
-            r = r.getSig();
-        }
-
-        r = a.getP();
-        NodoM w = r;
-
-        while (r != null) {
-            if (r.equals(nodoM)) {
-                if (r.equals(a.getP())) {
-                    a.setP(r.getSig());
-                } else {
-                    w.setSig(r.getSig());
-                }
-                return r.getMuseo();
-
-            }
-            w = r;
-            r = r.getSig();
-        }
-        return null;
-    }*/
-
-    /*public void ordenar(String g) {
-        int nNodos = museos.nroNodos();
-        LSMuseo aux = new LSMuseo();
-        for (int i = 1; i <= nNodos; i++) {
-            Museo may = buscarMayor(museos, g);
-            aux.adiFinal(may);
-        }
-
-        museos = aux;
-
-    }*/
     public void ordenar(String g) {
         int nNodos = museos.nroNodos();
         for (int i = 1; i <= nNodos; i++) {
